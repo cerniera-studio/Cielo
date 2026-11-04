@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Cielo: the day's temperature as one fine curve, the sun seated at its height.
+     Lit from the upper left like the rest of the family. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <!-- soft light behind the sun, falling off towards its edge -->
+    <path android:pathData="M54,43m-17,0a17,17 0,1 1,34 0a17,17 0,1 1,-34 0">
+        <aapt:attr name="android:fillColor">
+            <gradient android:type="radial" android:centerX="54" android:centerY="43" android:gradientRadius="17"
+                android:startColor="#33D9BB86" android:endColor="#00D9BB86" />
+        </aapt:attr>
+    </path>
+    <!-- the day: one curve -->
+    <path android:pathData="M28,66 C38,66 44,47 54,47 C64,47 70,62 80,63"
+        android:strokeColor="#F6F1E6" android:strokeWidth="2" android:strokeLineCap="round"
+        android:fillColor="#00000000" />
+    <!-- the sun, seated on the day's height -->
+    <path android:pathData="M54,43m-7,0a7,7 0,1 1,14 0a7,7 0,1 1,-14 0">
+        <aapt:attr name="android:fillColor">
+            <gradient android:type="linear" android:startX="49" android:startY="38" android:endX="59" android:endY="48"
+                android:startColor="#FFEBD3A6" android:endColor="#FFB8955A" />
+        </aapt:attr>
+    </path>
+    <!-- the rain to come: three beads under the curve's fall -->
+    <path android:fillColor="#8FB3C9" android:pathData="M68,72m-1.6,0a1.6,1.6 0,1 1,3.2 0a1.6,1.6 0,1 1,-3.2 0" />
+    <path android:fillColor="#B38FB3C9" android:pathData="M74,73m-1.6,0a1.6,1.6 0,1 1,3.2 0a1.6,1.6 0,1 1,-3.2 0" />
+    <path android:fillColor="#668FB3C9" android:pathData="M80,74m-1.6,0a1.6,1.6 0,1 1,3.2 0a1.6,1.6 0,1 1,-3.2 0" />
+</vector>
