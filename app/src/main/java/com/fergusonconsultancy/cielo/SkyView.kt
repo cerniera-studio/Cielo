@@ -374,9 +374,9 @@ class SkyView(context: Context) : View(context) {
             c.drawText(s, r.left - 4 * dp, r.top + ch, fig)
             // The degree: a fine ring at cap height, in the figure's own stroke weight. Italiana's
             // own degree sign is drawn at display size and floats loose of the numerals
-            val ring = size * 0.075f
-            line.strokeWidth = size * 0.018f; line.color = alpha(Palette.IVORY, ea)
-            c.drawCircle(r.left - 4 * dp + fig.measureText(s) + size * 0.05f + ring, r.top + ring + line.strokeWidth, ring, line)
+            val ring = size * 0.052f
+            line.strokeWidth = size * 0.0105f; line.color = alpha(Palette.IVORY, ea)
+            c.drawCircle(r.left - 4 * dp + fig.measureText(s) + size * 0.03f + ring, r.top + ring + line.strokeWidth, ring, line)
             fig.textSize = 150 * dp
             val code = if (atNow) f.code else if (scrubbing) f.hCode.getOrElse(hourIdx) { f.code } else f.dCode.getOrElse(day) { f.code }
             val isDay = if (atNow) f.isDay else if (scrubbing) f.hDay.getOrElse(hourIdx) { true } else true
