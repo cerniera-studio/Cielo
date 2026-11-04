@@ -14,6 +14,16 @@ jobs:
   launch:
     runs-on: ubuntu-latest
     timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: api34-guest
+            api: 34
+            gpu: guest
+          - name: api33-swiftshader
+            api: 33
+            gpu: swiftshader_indirect
     steps:
       - uses: actions/checkout@v4
 
@@ -38,11 +48,11 @@ jobs:
       - name: Launch on an emulator
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 34
+          api-level: ${{ matrix.api }}
           target: google_apis
           arch: x86_64
           ram-size: 4096M
-          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -camera-back none -camera-front none
+          emulator-options: -no-window -gpu ${{ matrix.gpu }} -no-snapshot -noaudio -no-boot-anim -camera-back none -camera-front none
           disable-animations: false
           script: bash .github/launch.sh
 
@@ -51,7 +61,7 @@ jobs:
         run: |
           [ -d shots ] || exit 0
           cd shots
-          git init -q -b screens
+          git init -q -b screens-${{ matrix.name }}
           git config user.name "Cielo launch test"; git config user.email "actions@users.noreply.github.com"
           git add -A && git commit -qm "Screens from ${GITHUB_SHA::7}"
-          git push -qf "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" screens
+          git push -qf "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" screens-${{ matrix.name }}

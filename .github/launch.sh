@@ -9,6 +9,10 @@ APK=$(ls app/build/outputs/apk/debug/*.apk | head -1)
 for i in $(seq 1 30); do [ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" = "1" ] && break; sleep 2; done
 sleep 40
 echo "settled: $(adb get-state 2>&1)"
+# Control: an ordinary app first. If the emulator survives this but not Cielo, Cielo is the cause
+adb shell am start -W -a android.settings.SETTINGS >/dev/null 2>&1; sleep 8
+echo "control (Settings) survived: $(adb get-state 2>&1)"
+adb shell input keyevent KEYCODE_HOME; sleep 2
 adb install -r "$APK"
 adb logcat -c
 mkdir -p shots
