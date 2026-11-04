@@ -28,8 +28,8 @@ desc() {
   adb shell uiautomator dump /sdcard/ui.xml 2>&1 | grep -v "dumped to" ; adb pull /sdcard/ui.xml ui.xml >/dev/null 2>&1
   python3 -c "
 import re;x=open('ui.xml',encoding='utf-8').read()
-m=re.search(r'class=\"com.fergusonconsultancy.cielo.SkyView\"[^>]*?content-desc=\"([^\"]*)\"',x) or re.search(r'content-desc=\"([^\"]*)\"[^>]*?class=\"com.fergusonconsultancy.cielo.SkyView\"',x)
-print(m.group(1) if m else '')"
+m=[d for d in re.findall(r'package=\"com.fergusonconsultancy.cielo\"[^>]*?content-desc=\"([^\"]*)\"',x) if '°' in d or 'orecast' in d]
+print(m[0] if m else '')"
 }
 tap_text() {
   adb shell uiautomator dump /sdcard/ui.xml 2>&1 | grep -v "dumped to" ; adb pull /sdcard/ui.xml ui.xml >/dev/null 2>&1

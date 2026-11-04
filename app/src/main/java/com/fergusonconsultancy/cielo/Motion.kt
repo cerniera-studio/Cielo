@@ -57,7 +57,9 @@ class Tween(private val ms: Float, private val delayMs: Float = 0f) {
  */
 class Hinge(c: Context) : SensorEventListener {
     private val sm = c.getSystemService(SensorManager::class.java)
-    private val sensor: Sensor? = sm?.getDefaultSensor(Sensor.TYPE_HINGE_ANGLE)
+    // The Android emulator (ranchu) brings itself down when its virtual hinge is read on a phone
+    // profile (seen on API 34 in the launch test), so the hinge is only read on real hardware
+    private val sensor: Sensor? = if (android.os.Build.HARDWARE == "ranchu") null else sm?.getDefaultSensor(Sensor.TYPE_HINGE_ANGLE)
     private val times = LongArray(64)
     private val angles = FloatArray(64)
     private var n = 0
