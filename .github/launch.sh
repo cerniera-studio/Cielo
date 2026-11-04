@@ -112,8 +112,10 @@ tap_text "Done"; sleep 2
 shot 09-lisbon
 echo "::notice::after adding: $(desc)"
 
-# Swipe back to the first place, photographed mid-swipe
-adb shell input swipe $((W/5)) $((H/2)) $((W*4/5)) $((H/2)) 1400 &
+# Swipe back to the first place, photographed mid-swipe (across the figure, clear of the curve)
+read L T R B <<< "$(lay_get "['header']")"
+SY=$((B + 80))
+adb shell input swipe $((W/5)) $SY $((W*4/5)) $SY 1400 &
 SW=$!
 sleep 0.8
 shot 10-swipe

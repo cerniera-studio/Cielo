@@ -133,10 +133,13 @@ object Glyphs {
             }
             Weather.Sky.CLOUD -> c.drawPath(cloud(cx, cy, s), stroke)
             Weather.Sky.FOG -> {
-                for (i in 0..2) {
-                    val w = s * (0.7f - i * 0.14f)
-                    stroke.color = alpha(Palette.IVORY, (0.9f - i * 0.25f) * a)
-                    c.drawLine(cx - w / 2, cy - 0.16f * s + i * 0.16f * s, cx + w / 2, cy - 0.16f * s + i * 0.16f * s, stroke)
+                stroke.color = alpha(Palette.IVORY, 0.45f * a)
+                c.drawPath(cloud(cx, cy - 0.14f * s, s), stroke)
+                for (i in 0..1) {
+                    val w = s * (0.62f - i * 0.2f)
+                    val y = cy + 0.26f * s + i * 0.14f * s
+                    stroke.color = alpha(Palette.IVORY, (0.9f - i * 0.3f) * a)
+                    c.drawLine(cx - w / 2 + i * 0.06f * s, y, cx + w / 2 + i * 0.06f * s, y, stroke)
                 }
             }
             Weather.Sky.DRIZZLE -> { c.drawPath(cloud(cx, cy - 0.1f * s, s), stroke); drops(2, Palette.ACQUA, false) }

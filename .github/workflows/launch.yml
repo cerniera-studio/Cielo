@@ -18,9 +18,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - name: api34-guest
-            api: 34
-            gpu: guest
+          # API 34 images die on this runner while forking a freshly installed app's process,
+          # before any app code runs (4 Nov); API 33 is stable
           - name: api33-swiftshader
             api: 33
             gpu: swiftshader_indirect

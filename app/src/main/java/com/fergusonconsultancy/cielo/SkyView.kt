@@ -118,7 +118,7 @@ class SkyView(context: Context) : View(context) {
         val vH = vLines.size * ink.statement.textSize * 1.22f + 10 * dp + ink.meta.textSize * 1.3f
         val verdict = RectF(aL, y, aR, y + vH); y = verdict.bottom + 26 * dp
 
-        val plotH = if (wide) 190 * dp else 140 * dp
+        val plotH = if (wide) (height - bottomInset - y - 30 * dp - 48 * dp - 24 * dp).coerceIn(190 * dp, 300 * dp) else 140 * dp
         val curveTop = y
         val plot = RectF(aL, curveTop + 30 * dp, aR, curveTop + 30 * dp + plotH)
         val curve = RectF(aL, curveTop, aR, plot.bottom + 48 * dp)
@@ -135,13 +135,14 @@ class SkyView(context: Context) : View(context) {
 
         val kinds = tilesFor(f)
         val gap = 10 * dp
-        val tileW = (bW - gap) / 2
+        val across = if (wide) 3 else 2
+        val tileW = (bW - gap * (across - 1)) / across
         val tileH = 118 * dp
         val tiles = ArrayList<Pair<Tile, RectF>>()
         if (kinds.isNotEmpty()) yb += 22 * dp  // the "Now" label
         kinds.forEachIndexed { i, k ->
-            val row = i / 2; val colI = i % 2
-            val last = i == kinds.size - 1 && kinds.size % 2 == 1
+            val row = i / across; val colI = i % across
+            val last = !wide && i == kinds.size - 1 && kinds.size % 2 == 1
             val l = if (last) bL else bL + colI * (tileW + gap)
             val r = if (last) bR else l + tileW
             tiles += k to RectF(l, yb + row * (tileH + gap), r, yb + row * (tileH + gap) + tileH)
@@ -362,15 +363,20 @@ class SkyView(context: Context) : View(context) {
             c.translate(baseX + ex + lag(0.25f, prog), yOf(L.hero.top))
             val r = L.hero
             val tempC = if (atNow) f.temp else if (scrubbing) f.hTemp.getOrElse(hourIdx) { f.temp } else f.dMax.getOrElse(day) { f.temp }
-            val s = units.t(tempC)
+            val s = units.t(tempC).removeSuffix("°")
             val fig = ink.figure
             fig.color = alpha(Palette.IVORY, ea)
             var size = 150 * dp
             fig.textSize = size
-            val room = r.width() - 84 * dp
+            val room = r.width() - 110 * dp
             while (fig.measureText(s) > room && size > 70 * dp) { size -= 6 * dp; fig.textSize = size }
             val ch = capHeight(fig)
             c.drawText(s, r.left - 4 * dp, r.top + ch, fig)
+            // The degree: a fine ring at cap height, in the figure's own stroke weight. Italiana's
+            // own degree sign is drawn at display size and floats loose of the numerals
+            val ring = size * 0.075f
+            line.strokeWidth = size * 0.018f; line.color = alpha(Palette.IVORY, ea)
+            c.drawCircle(r.left - 4 * dp + fig.measureText(s) + size * 0.05f + ring, r.top + ring + line.strokeWidth, ring, line)
             fig.textSize = 150 * dp
             val code = if (atNow) f.code else if (scrubbing) f.hCode.getOrElse(hourIdx) { f.code } else f.dCode.getOrElse(day) { f.code }
             val isDay = if (atNow) f.isDay else if (scrubbing) f.hDay.getOrElse(hourIdx) { true } else true
@@ -657,7 +663,7 @@ class SkyView(context: Context) : View(context) {
         val hiS = units.t(f.dMax.getOrElse(n) { Double.NaN }); val loS = units.t(f.dMin.getOrElse(n) { Double.NaN })
         val hiW = 34 * dp
         val tR = r.right - hiW - 8 * dp
-        val tL = max(r.left + 150 * dp, r.left + r.width() * 0.5f)
+        val tL = max(r.left + 178 * dp, r.left + r.width() * 0.52f)
         ink.figures.color = alpha(Palette.IVORY, ea)
         c.drawText(hiS, r.right - ink.figures.measureText(hiS), cy + capHeight(ink.figures) / 2, ink.figures)
         ink.figures.color = alpha(Palette.MUTED, ea)
@@ -683,13 +689,13 @@ class SkyView(context: Context) : View(context) {
         c.drawRoundRect(r, 22 * dp, 22 * dp, fill)
         val padX = 16 * dp
         val label: String; val value: String; val sub: String
-        val ix = r.right - 34 * dp; val iy = r.top + 38 * dp
+        val ix = r.right - 30 * dp; val iy = r.top + 30 * dp
         when (kind) {
             Tile.WIND -> {
                 label = "WIND"; value = f.wind?.let { units.w(it) } ?: "–"
                 sub = (f.windDir?.let { "From the " + Weather.compass(it) } ?: "") + (f.gusts?.takeIf { it >= (f.wind ?: 0.0) + 8 }?.let { " · gusts " + units.w(it).substringBefore(' ') } ?: "")
                 // The needle points where the wind is going
-                f.windDir?.let { Glyphs.needle(c, ix, iy, 16 * dp, (it + 180f) % 360f, dp, ea) }
+                f.windDir?.let { Glyphs.needle(c, ix, iy, 13 * dp, (it + 180f) % 360f, dp, ea) }
             }
             Tile.SUN -> {
                 val rise = f.dRise.getOrElse(0) { "" }; val set = f.dSet.getOrElse(0) { "" }
@@ -699,12 +705,12 @@ class SkyView(context: Context) : View(context) {
                 value = if (up) set.drop(11).take(5) else (if (t > 1f) f.dRise.getOrElse(1) { rise } else rise).drop(11).take(5)
                 val mins = f.minutes(set) - f.minutes(rise)
                 sub = if (mins > 0) "${mins / 60} h ${"%02d".format(mins % 60)} m of daylight" else ""
-                Glyphs.sunArc(c, ix, iy + 8 * dp, 16 * dp, t, dp, ea)
+                Glyphs.sunArc(c, ix, iy + 7 * dp, 13 * dp, t, dp, ea)
             }
             Tile.FEELS -> {
                 label = "FEELS LIKE"; value = units.t(f.feels ?: f.temp)
                 sub = f.humidity?.let { "Humidity $it%" } ?: ""
-                f.humidity?.let { Glyphs.ring(c, ix, iy, 15 * dp, it / 100f, Palette.ACQUA, dp, ea) }
+                f.humidity?.let { Glyphs.ring(c, ix, iy, 12 * dp, it / 100f, Palette.ACQUA, dp, ea) }
             }
             Tile.RAIN -> {
                 val mm = f.dPrecip.getOrElse(0) { 0.0 }.takeIf { !it.isNaN() } ?: 0.0
@@ -716,7 +722,7 @@ class SkyView(context: Context) : View(context) {
                 val uv = f.dUv.getOrElse(0) { 0.0 }
                 label = "UV TODAY"; value = uv.roundToInt().toString()
                 sub = when { uv < 6 -> "Moderate"; uv < 8 -> "High"; uv < 11 -> "Very high"; else -> "Extreme" }
-                Glyphs.ring(c, ix, iy, 15 * dp, (uv / 11).toFloat(), Palette.CHAMPAGNE, dp, ea)
+                Glyphs.ring(c, ix, iy, 12 * dp, (uv / 11).toFloat(), Palette.CHAMPAGNE, dp, ea)
             }
             Tile.AIR -> {
                 val q = f.aqi ?: 0
@@ -732,7 +738,7 @@ class SkyView(context: Context) : View(context) {
         ink.label.color = alpha(Palette.MUTED, ea * (0.25f + 0.75f * k))
         c.drawText(label, r.left + padX, r.top + 18 * dp + capHeight(ink.label), ink.label)
         ink.tile.color = alpha(Palette.IVORY, ea)
-        c.drawText(fit(value, ink.tile, r.width() - 2 * padX - 40 * dp), r.left + padX, r.top + 52 * dp + capHeight(ink.tile), ink.tile)
+        c.drawText(fit(value, ink.tile, r.width() - 2 * padX), r.left + padX, r.top + 52 * dp + capHeight(ink.tile), ink.tile)
         ink.meta.color = alpha(Palette.MUTED, ea * (0.4f + 0.6f * k))
         wrap(sub, ink.meta, r.width() - 2 * padX, 2).forEachIndexed { i, s ->
             c.drawText(s, r.left + padX, r.top + 88 * dp + capHeight(ink.meta) + i * ink.meta.textSize * 1.3f, ink.meta)
