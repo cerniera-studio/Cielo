@@ -8,7 +8,10 @@ APK=$(ls app/build/outputs/apk/debug/*.apk | head -1)
 adb install -r "$APK"
 adb logcat -c
 mkdir -p shots
-shot() { adb exec-out screencap -p > "shots/$1.png"; echo "shot $1"; }
+# A live log, kept even if the emulator dies, so the last seconds can be read
+adb logcat -v time > shots/logcat-live.txt 2>&1 &
+alive() { [ "$(adb get-state 2>/dev/null)" = "device" ] || { echo "::error::the emulator went offline at: $1"; tail -80 shots/logcat-live.txt | while IFS= read -r l; do echo "LIVE $l"; done; exit 1; }; }
+shot() { adb exec-out screencap -p > "shots/$1.png"; echo "shot $1"; alive "$1"; }
 size() { SIZE=$(adb shell wm size | grep -o "[0-9]*x[0-9]*" | tail -1); W=${SIZE%x*}; H=${SIZE#*x}; }
 lay() { adb shell run-as $PKG cat files/layout.json 2>/dev/null; }
 # Reads a value from the recorded layout: lay_get 'plot' -> "l t r b"
@@ -38,7 +41,8 @@ PY
 
 size
 adb shell am start -W -n $PKG/.MainActivity
-sleep 12
+for i in 1 2 3 4 5 6; do sleep 2; echo "t+$((i*2))s: $(adb get-state 2>&1) pid=$(adb shell pidof $PKG 2>&1)"; done
+alive "launch"
 shot 01-cover
 echo "::notice::summary: $(desc)"
 if desc | grep -q "Fetching\|No forecast"; then echo "::warning::no forecast arrived on the emulator (network?)"; fi
