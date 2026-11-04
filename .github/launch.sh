@@ -17,14 +17,14 @@ lay() { adb shell run-as $PKG cat files/layout.json 2>/dev/null; }
 # Reads a value from the recorded layout: lay_get 'plot' -> "l t r b"
 lay_get() { lay | python3 -c "import sys,json;d=json.load(sys.stdin);v=d$1;print(*v) if isinstance(v,list) else print(v)"; }
 desc() {
-  adb shell uiautomator dump /sdcard/ui.xml >/dev/null 2>&1; adb pull /sdcard/ui.xml ui.xml >/dev/null 2>&1
+  adb shell uiautomator dump /sdcard/ui.xml 2>&1 | grep -v "dumped to" ; adb pull /sdcard/ui.xml ui.xml >/dev/null 2>&1
   python3 -c "
 import re;x=open('ui.xml',encoding='utf-8').read()
 m=re.search(r'class=\"com.fergusonconsultancy.cielo.SkyView\"[^>]*?content-desc=\"([^\"]*)\"',x) or re.search(r'content-desc=\"([^\"]*)\"[^>]*?class=\"com.fergusonconsultancy.cielo.SkyView\"',x)
 print(m.group(1) if m else '')"
 }
 tap_text() {
-  adb shell uiautomator dump /sdcard/ui.xml >/dev/null 2>&1; adb pull /sdcard/ui.xml ui.xml >/dev/null 2>&1
+  adb shell uiautomator dump /sdcard/ui.xml 2>&1 | grep -v "dumped to" ; adb pull /sdcard/ui.xml ui.xml >/dev/null 2>&1
   b=$(python3 - "$1" <<'PY'
 import re,sys
 x=open('ui.xml',encoding='utf-8').read()
@@ -43,6 +43,11 @@ size
 adb shell am start -W -n $PKG/.MainActivity
 for i in 1 2 3 4 5 6; do sleep 2; echo "t+$((i*2))s: $(adb get-state 2>&1) pid=$(adb shell pidof $PKG 2>&1)"; done
 alive "launch"
+# At rest the app must stop drawing: frames counted three seconds apart should barely move
+f1=$(adb shell dumpsys gfxinfo $PKG | grep -m1 "Total frames rendered" | grep -o "[0-9]*$"); sleep 3
+f2=$(adb shell dumpsys gfxinfo $PKG | grep -m1 "Total frames rendered" | grep -o "[0-9]*$")
+echo "::notice::frames at rest: $f1 then $f2 three seconds later"
+[ $((f2 - f1)) -gt 20 ] && echo "::error::Cielo keeps drawing at rest ($((f2 - f1)) frames in 3 s)"
 shot 01-cover
 echo "::notice::summary: $(desc)"
 if desc | grep -q "Fetching\|No forecast"; then echo "::warning::no forecast arrived on the emulator (network?)"; fi
@@ -51,9 +56,10 @@ if desc | grep -q "Fetching\|No forecast"; then echo "::warning::no forecast arr
 read L T R B <<< "$(lay_get "['plot']")"
 Y=$(( (T + B) / 2 ))
 adb shell input swipe $((L + (R-L)/5)) $Y $((L + (R-L)*4/5)) $Y 3200 &
+SW=$!
 sleep 2
 shot 02-scrub
-wait
+wait $SW
 sleep 1
 
 # Another day: the fourth row of the week
@@ -77,9 +83,10 @@ shot 04-tiles
 for i in 1 2 3; do adb shell input swipe $((W/2)) $((H/5)) $((W/2)) $((H*4/5)) 250; sleep 0.4; done
 sleep 1
 adb shell input swipe $((W/2)) $((H/4)) $((W/2)) $((H*3/4)) 2400 &
+SW=$!
 sleep 1.6
 shot 05-pull
-wait
+wait $SW
 sleep 3
 
 # Places: tap the name, search, add a city
@@ -99,9 +106,10 @@ echo "::notice::after adding: $(desc)"
 
 # Swipe back to the first place, photographed mid-swipe
 adb shell input swipe $((W/5)) $((H/2)) $((W*4/5)) $((H/2)) 1400 &
+SW=$!
 sleep 0.8
 shot 10-swipe
-wait
+wait $SW
 sleep 2
 shot 11-back
 echo "::notice::after swiping: $(desc)"
@@ -141,15 +149,17 @@ echo "::notice::main screen: $(lay | head -c 300)"
 read L T R B <<< "$(lay_get "['plot']")"
 Y=$(( (T + B) / 2 ))
 adb shell input swipe $((L + (R-L)/4)) $Y $((L + (R-L)*3/4)) $Y 3000 &
+SW=$!
 sleep 2
 shot 16-main-scrub
-wait
+wait $SW
 adb shell wm size reset
 sleep 0.35
 shot 17-folding
 sleep 3
 shot 18-cover-again
 
+kill %1 2>/dev/null
 adb logcat -d > logcat.txt
 if grep -q "FATAL EXCEPTION" logcat.txt; then
   grep -A 40 "FATAL EXCEPTION" logcat.txt | grep -E "AndroidRuntime" | head -40 | sed 's/^.*AndroidRuntime: //' | while IFS= read -r line; do echo "::error::$line"; done
