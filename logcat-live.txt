@@ -1,0 +1,620 @@
+--------- beginning of main
+11-04 15:51:06.492 I/resolv  (  334): GetAddrInfoHandler::run: {100 100 100 983140 10141 0}
+11-04 15:51:06.501 I/resolv  (  334): res_nmkquery: (QUERY, IN, A)
+11-04 15:51:06.501 I/resolv  (  334): resolv_cache_lookup: FOUND IN CACHE entry=0x7eaef7667270
+11-04 15:51:06.501 I/resolv  (  334): doQuery: rcode=0, ancount=4, return value=95
+11-04 15:51:06.502 I/resolv  (  334): res_nmkquery: (QUERY, IN, AAAA)
+11-04 15:51:06.502 I/resolv  (  334): resolv_cache_lookup: FOUND IN CACHE entry=0x7eaea766ebf0
+11-04 15:51:06.502 I/resolv  (  334): doQuery: rcode=0, ancount=4, return value=143
+11-04 15:51:06.502 D/TrafficStats( 1576): tagSocket(132) with statsTag=0xffffffff, statsUid=-1
+11-04 15:51:06.473 W/binder:517_2(  517): type=1400 audit(0.0:36): avc:  denied  { getopt } for  scontext=u:r:system_server:s0 tcontext=u:r:shell:s0 tclass=unix_stream_socket permissive=0
+11-04 15:51:06.517 W/putmethod.latin( 1576): Accessing hidden method Lcom/android/org/conscrypt/ConscryptEngineSocket;->setUseSessionTickets(Z)V (max-target-q,core-platform-api, reflection, denied)
+11-04 15:51:06.517 W/putmethod.latin( 1576): Accessing hidden method Lcom/android/org/conscrypt/OpenSSLSocketImpl;->setUseSessionTickets(Z)V (max-target-q,core-platform-api, reflection, denied)
+11-04 15:51:06.517 W/putmethod.latin( 1576): Accessing hidden method Lcom/android/org/conscrypt/AbstractConscryptSocket;->setUseSessionTickets(Z)V (max-target-q, reflection, denied)
+11-04 15:51:06.517 W/putmethod.latin( 1576): Accessing hidden method Lcom/android/org/conscrypt/ConscryptEngineSocket;->setHostname(Ljava/lang/String;)V (max-target-q,core-platform-api, reflection, denied)
+11-04 15:51:06.517 W/putmethod.latin( 1576): Accessing hidden method Lcom/android/org/conscrypt/OpenSSLSocketImpl;->setHostname(Ljava/lang/String;)V (max-target-q,core-platform-api, reflection, denied)
+11-04 15:51:06.517 W/putmethod.latin( 1576): Accessing hidden method Lcom/android/org/conscrypt/AbstractConscryptSocket;->setHostname(Ljava/lang/String;)V (max-target-q, reflection, denied)
+11-04 15:51:06.517 W/putmethod.latin( 1576): Accessing hidden method Lcom/android/org/conscrypt/OpenSSLSocketImpl;->setAlpnProtocols([B)V (max-target-q,core-platform-api, reflection, denied)
+11-04 15:51:06.517 W/putmethod.latin( 1576): Accessing hidden method Lcom/android/org/conscrypt/AbstractConscryptSocket;->setAlpnProtocols([B)V (max-target-q, reflection, denied)
+11-04 15:51:06.518 I/SP      ( 1576): Scheduling: download stopped, 0 started, 0 paused, 0 scheduled, 3 pending: content_cache:8722425f4121ffdea802b1066df73991 @ {m:b:u:l, bg}, content_cache:fa1da98da1212aad6fb9a8efaff48148 @ {m:b:u:l, bg}, delight:main_en_840_2022102600_1 @ {m:b:u:l, fg}
+11-04 15:51:06.520 I/Icing   ( 1495): Indexing done com.google.android.gms-internal.3p:MobileApplication
+--------- beginning of system
+11-04 15:51:06.523 D/CompatibilityChangeReporter(  517): Compat change id reported: 168419799; UID 10192; state: DISABLED
+11-04 15:51:06.524 D/CompatibilityChangeReporter(  517): Compat change id reported: 273564678; UID 10192; state: DISABLED
+11-04 15:51:06.538 I/Icing   ( 1495): Indexing com.google.android.gms-internal.3p:MobileApplication from com.google.android.gms
+11-04 15:51:06.540 I/Icing   ( 1495): Indexing done com.google.android.gms-internal.3p:MobileApplication
+11-04 15:51:06.543 I/SP      ( 1576): Download stopped: content_cache:8722425f4121ffdea802b1066df73991, succeeded paused, size: 5017
+--------- beginning of kernel
+11-04 15:51:07.078 I/logd    (    0): logdr: UID=2000 GID=2000 PID=4768 b tail=0 logMask=99 pid=0 start=0ns deadline=0ns
+11-04 15:51:06.574 I/Icing   ( 1495): Indexing com.google.android.gms-apps from com.google.android.gms
+11-04 15:51:06.587 D/DownloadManager( 2191): [4] Finished with status SUCCESS
+11-04 15:51:06.598 I/SP      ( 1576): Scheduling: download stopped, 0 started, 0 paused, 0 scheduled, 2 pending: content_cache:fa1da98da1212aad6fb9a8efaff48148 @ {m:b:u:l, bg}, delight:main_en_840_2022102600_1 @ {m:b:u:l, fg}
+11-04 15:51:06.598 I/SP      ( 1576): <==== Finishing job {m:b:u:l, bg}, 1106 ms. elapsed since start
+11-04 15:51:06.598 I/SP      ( 1576): Download stopped: content_cache:fa1da98da1212aad6fb9a8efaff48148, succeeded paused, size: 1065
+11-04 15:51:06.618 D/ActivityManager(  517): freezing 3704 com.google.android.rkpdapp
+11-04 15:51:06.619 D/CompatibilityChangeReporter(  517): Compat change id reported: 161252188; UID 10192; state: DISABLED
+11-04 15:51:06.620 W/ActivityTaskManager(  517): callingPackage for (uid=2000, pid=4778) has no WPC
+11-04 15:51:06.621 D/CompatibilityChangeReporter(  517): Compat change id reported: 265464455; UID 10192; state: DISABLED
+11-04 15:51:06.621 D/CompatibilityChangeReporter(  517): Compat change id reported: 265452344; UID 10192; state: DISABLED
+11-04 15:51:06.622 D/CompatibilityChangeReporter(  517): Compat change id reported: 266124927; UID 10192; state: DISABLED
+11-04 15:51:06.622 D/CompatibilityChangeReporter(  517): Compat change id reported: 265451093; UID 10192; state: DISABLED
+11-04 15:51:06.622 D/CompatibilityChangeReporter(  517): Compat change id reported: 265456536; UID 10192; state: DISABLED
+11-04 15:51:06.623 D/CompatibilityChangeReporter(  517): Compat change id reported: 255940284; UID 10192; state: DISABLED
+11-04 15:51:06.623 D/CompatibilityChangeReporter(  517): Compat change id reported: 236283604; UID 10192; state: DISABLED
+11-04 15:51:06.623 D/CompatibilityChangeReporter(  517): Compat change id reported: 263959004; UID 10192; state: DISABLED
+11-04 15:51:06.623 D/CompatibilityChangeReporter(  517): Compat change id reported: 264304459; UID 10192; state: DISABLED
+11-04 15:51:06.623 I/SP      ( 1576): Scheduling: download stopped, 0 started, 0 paused, 0 scheduled, 1 pending: delight:main_en_840_2022102600_1 @ {m:b:u:l, fg}
+11-04 15:51:06.623 D/CompatibilityChangeReporter(  517): Compat change id reported: 264301586; UID 10192; state: DISABLED
+11-04 15:51:06.623 D/CompatibilityChangeReporter(  517): Compat change id reported: 254631730; UID 10192; state: DISABLED
+11-04 15:51:06.624 D/CompatibilityChangeReporter(  517): Compat change id reported: 273509367; UID 10192; state: DISABLED
+11-04 15:51:06.624 D/CompatibilityChangeReporter(  517): Compat change id reported: 263259275; UID 10192; state: DISABLED
+11-04 15:51:06.624 D/CompatibilityChangeReporter(  517): Compat change id reported: 174042980; UID 10192; state: DISABLED
+11-04 15:51:06.624 D/CompatibilityChangeReporter(  517): Compat change id reported: 174042936; UID 10192; state: DISABLED
+11-04 15:51:06.624 D/CompatibilityChangeReporter(  517): Compat change id reported: 181136395; UID 10192; state: DISABLED
+11-04 15:51:06.626 D/CompatibilityChangeReporter(  517): Compat change id reported: 194480991; UID 10192; state: ENABLED
+11-04 15:51:06.628 D/CompatibilityChangeReporter(  517): Compat change id reported: 184838306; UID 10192; state: DISABLED
+11-04 15:51:06.629 D/CompatibilityChangeReporter(  517): Compat change id reported: 185004937; UID 10192; state: DISABLED
+11-04 15:51:06.629 D/CompatibilityChangeReporter(  517): Compat change id reported: 197654537; UID 10192; state: ENABLED
+11-04 15:51:06.630 V/SplashScreenExceptionList(  517): SplashScreen checking exception for package com.fergusonconsultancy.cielo (target sdk:35) -> false
+11-04 15:51:06.631 D/CompatibilityChangeReporter(  517): Compat change id reported: 205907456; UID 10192; state: ENABLED
+11-04 15:51:06.633 I/ActivityTaskManager(  517): START u0 {flg=0x10000000 cmp=com.fergusonconsultancy.cielo/.MainActivity} with LAUNCH_MULTIPLE from uid 2000 (BAL_ALLOW_PERMISSION) result code=0
+11-04 15:51:06.635 D/CompatibilityChangeReporter(  517): Compat change id reported: 135634846; UID 10192; state: DISABLED
+11-04 15:51:06.635 D/CompatibilityChangeReporter(  517): Compat change id reported: 177438394; UID 10192; state: DISABLED
+11-04 15:51:06.635 D/CompatibilityChangeReporter(  517): Compat change id reported: 135772972; UID 10192; state: DISABLED
+11-04 15:51:06.635 D/CompatibilityChangeReporter(  517): Compat change id reported: 135754954; UID 10192; state: ENABLED
+11-04 15:51:06.636 V/WindowManagerShell(  841): Transition requested: android.os.BinderProxy@be0f647 TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=9 displayId=0 isRunning=true baseIntent=Intent { flg=0x10000000 cmp=com.fergusonconsultancy.cielo/.MainActivity } baseActivity=ComponentInfo{com.fergusonconsultancy.cielo/com.fergusonconsultancy.cielo.MainActivity} topActivity=ComponentInfo{com.fergusonconsultancy.cielo/com.fergusonconsultancy.cielo.MainActivity} origActivity=null realActivity=ComponentInfo{com.fergusonconsultancy.cielo/com.fergusonconsultancy.cielo.MainActivity} numActivities=1 lastActiveTime=95830 supportsMultiWindow=true resizeMode=2 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{android.window.IWindowContainerToken$Stub$Proxy@bbcae74} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=null topActivityInfo=ActivityInfo{e35cf9d com.fergusonconsultancy.cielo.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false isSleeping=false topActivityInSizeCompat=false topActivityEligibleForLetterboxEducation= false topActivityLetterboxed= false isFromDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 locusId=null displayAreaFeatureId=1 cameraCompatControlState=hidden}, remoteTransition = null, displayChange = null }
+11-04 15:51:06.647 D/CompatibilityChangeReporter(  517): Compat change id reported: 143937733; UID 10192; state: ENABLED
+11-04 15:51:06.653 I/BpBinder(  402): onLastStrongRef automatically unlinking death recipients: 
+11-04 15:51:06.661 D/Zygote  (  335): Forked child process 4781
+11-04 15:51:06.663 D/CompatibilityChangeReporter(  841): Compat change id reported: 289878283; UID 10168; state: ENABLED
+11-04 15:51:06.664 D/SplashScreenView(  841): Build android.window.SplashScreenView{d2df1d1 V.E...... ......ID 0,0-0,0}
+11-04 15:51:06.664 D/SplashScreenView(  841): Icon: view: android.widget.ImageView{4e3d436 V.ED..... ......I. 0,0-0,0 #10204f0 android:id/splashscreen_icon_view} drawable: com.android.wm.shell.startingsurface.SplashscreenIconDrawableFactory$ImmobileIconDrawable@76dff37 size: 160
+11-04 15:51:06.664 D/SplashScreenView(  841): Branding: view: android.view.View{9229ca4 G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+11-04 15:51:06.665 I/ActivityManager(  517): Start proc 4781:com.fergusonconsultancy.cielo/u0a192 for next-top-activity {com.fergusonconsultancy.cielo/com.fergusonconsultancy.cielo.MainActivity}
+11-04 15:51:06.676 D/CoreBackPreview(  517): Window{a0bc7e5 u0 Splash Screen com.fergusonconsultancy.cielo}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@1dad56b, mPriority=0, mIsAnimationCallback=false}
+11-04 15:51:06.682 I/Icing   ( 1495): Indexing done com.google.android.gms-apps
+11-04 15:51:06.690 I/Icing   ( 1495): Indexing com.google.android.gms-internal.3p:MobileApplication from com.google.android.gms
+11-04 15:51:06.695 W/AiAiAutofill( 1663): Failed to set whitelist for augmented autofill service.
+11-04 15:51:06.695 W/AiAiAutofill( 1663): java.lang.SecurityException: caller is not user's Augmented Autofill Service
+11-04 15:51:06.695 W/AiAiAutofill( 1663): 	at android.view.autofill.AutofillManager.setAugmentedAutofillWhitelist(AutofillManager.java:2676)
+11-04 15:51:06.695 W/AiAiAutofill( 1663): 	at cjj.c(PG:7)
+11-04 15:51:06.695 W/AiAiAutofill( 1663): 	at cju.g(PG:8)
+11-04 15:51:06.695 W/AiAiAutofill( 1663): 	at ckd.c(PG:18)
+11-04 15:51:06.695 W/AiAiAutofill( 1663): 	at eoz.g(PG:3)
+11-04 15:51:06.695 W/AiAiAutofill( 1663): 	at fde.a(PG:3)
+11-04 15:51:06.695 W/AiAiAutofill( 1663): 	at jen.t(PG:18)
+11-04 15:51:06.695 W/AiAiAutofill( 1663): 	at jen.c(PG:35)
+11-04 15:51:06.695 W/AiAiAutofill( 1663): 	at gfo.run(PG:14)
+11-04 15:51:06.695 W/AiAiAutofill( 1663): 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:487)
+11-04 15:51:06.695 W/AiAiAutofill( 1663): 	at java.util.concurrent.FutureTask.run(FutureTask.java:264)
+11-04 15:51:06.695 W/AiAiAutofill( 1663): 	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:307)
+11-04 15:51:06.695 W/AiAiAutofill( 1663): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+11-04 15:51:06.695 W/AiAiAutofill( 1663): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+11-04 15:51:06.695 W/AiAiAutofill( 1663): 	at dgq.run(PG:67)
+11-04 15:51:06.695 W/AiAiAutofill( 1663): 	at java.lang.Thread.run(Thread.java:1012)
+11-04 15:51:06.700 D/CompatibilityChangeReporter(  517): Compat change id reported: 265195908; UID 10192; state: ENABLED
+11-04 15:51:06.728 D/EGL_emulation( 1098): app_time_stats: avg=183.98ms min=1.83ms max=1992.86ms count=15
+11-04 15:51:06.734 I/GMS_MM_Logger( 1495): Memory Metric Logging not allowed. Stopping.
+11-04 15:51:06.795 I/Icing   ( 1495): Indexing com.google.android.gms-apps from com.google.android.gms
+11-04 15:51:06.796 I/Icing   ( 1495): Indexing done com.google.android.gms-apps
+11-04 15:51:06.796 I/SP      ( 1576): Sync for dynamic_art succeeded in 1359 ms: {added: [305f81355a729e382ea9f374dd286d9f, b1f6f47a53f7820be91b9fe247728980], metadata: false
+11-04 15:51:06.797 I/Icing   ( 1495): Indexing done com.google.android.gms-internal.3p:MobileApplication
+11-04 15:51:06.805 I/system_server(  517): Background concurrent copying GC freed 249946(13MB) AllocSpace objects, 9(160KB) LOS objects, 48% free, 25MB/49MB, paused 37us,47us total 354.516ms
+11-04 15:51:06.825 W/JavaBinder(  517): BinderProxy is being destroyed but the application did not call unlinkToDeath to unlink all of its death recipients beforehand.  Releasing leaked death recipient: com.android.server.am.ActivityManagerService$14
+11-04 15:51:06.825 I/BpBinder(  517): onLastStrongRef automatically unlinking death recipients: 
+11-04 15:51:06.836 W/BpBinder( 1438): Large outgoing transaction of 329800 bytes, interface descriptor , code 4
+11-04 15:51:06.844 I/nsultancy.cielo( 4781): Late-enabling -Xcheck:jni
+11-04 15:51:06.868 I/Icing   ( 1495): Indexing com.google.android.gms-apps from com.google.android.gms
+11-04 15:51:06.869 I/Icing   ( 1495): Indexing done com.google.android.gms-apps
+11-04 15:51:06.869 I/Icing   ( 1495): Indexing com.google.android.gms-internal.3p:MobileApplication from com.google.android.gms
+11-04 15:51:06.873 I/Icing   ( 1495): Indexing done com.google.android.gms-internal.3p:MobileApplication
+11-04 15:51:06.877 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_birthdaydoodle_jar__name to integer.
+11-04 15:51:06.877 I/nsultancy.cielo( 4781): Using CollectorTypeCC GC.
+11-04 15:51:06.879 W/nsultancy.cielo( 4781): Unexpected CPU variant for x86: x86_64.
+11-04 15:51:06.879 W/nsultancy.cielo( 4781): Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+11-04 15:51:06.880 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_call_jar__name to integer.
+11-04 15:51:06.880 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_canvas_jar__name to integer.
+11-04 15:51:06.880 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_chkpkg_jar__name to integer.
+11-04 15:51:06.880 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_crashtest_jar__name to integer.
+11-04 15:51:06.880 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_dining_jar__name to integer.
+11-04 15:51:06.880 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_doodle_notifications_jar__name to integer.
+11-04 15:51:06.880 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_imageviewer_jar__name to integer.
+11-04 15:51:06.880 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_ipa_jar__name to integer.
+11-04 15:51:06.880 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_jslocation_jar__name to integer.
+11-04 15:51:06.880 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_localintent_jar__name to integer.
+11-04 15:51:06.880 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_messaging_jar__name to integer.
+11-04 15:51:06.881 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_nativesrp_activity_jar__name to integer.
+11-04 15:51:06.881 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_nativesrp_presenter_jar__name to integer.
+11-04 15:51:06.881 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_nowcontent_jar__name to integer.
+11-04 15:51:06.881 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_recents_activity_jar__name to integer.
+11-04 15:51:06.881 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_save_jar__name to integer.
+11-04 15:51:06.881 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_searchresults_activity_jar__name to integer.
+11-04 15:51:06.881 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_test_jar__name to integer.
+11-04 15:51:06.881 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_weather_jar__name to integer.
+11-04 15:51:06.881 W/A       ( 1785): Can't format flag bindle_flags__bloblobber_blob to integer.
+11-04 15:51:06.881 W/A       ( 1785): Can't format flag bindle_flags__velour_jar to integer.
+11-04 15:51:06.898 V/WindowManagerShell(  841): onTransitionReady android.os.BinderProxy@be0f647: {id=8 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{WCT{android.window.IWindowContainerToken$Stub$Proxy@589ee4b} m=OPEN f=NONE leash=Surface(name=Task=9)/@0x69adc3c sb=Rect(0, 0 - 320, 640) eb=Rect(0, 0 - 320, 640) d=0},{WCT{android.window.IWindowContainerToken$Stub$Proxy@b578028} m=TO_BACK f=SHOW_WALLPAPER leash=Surface(name=Task=1)/@0x1723dc5 sb=Rect(0, 0 - 320, 640) eb=Rect(0, 0 - 320, 640) d=0}]}
+11-04 15:51:06.899 V/WindowManager(  517): Sent Transition #8 createdAt=11-04 15:51:06.626 via request=TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=9 displayId=0 isRunning=true baseIntent=Intent { flg=0x10000000 cmp=com.fergusonconsultancy.cielo/.MainActivity } baseActivity=ComponentInfo{com.fergusonconsultancy.cielo/com.fergusonconsultancy.cielo.MainActivity} topActivity=ComponentInfo{com.fergusonconsultancy.cielo/com.fergusonconsultancy.cielo.MainActivity} origActivity=null realActivity=ComponentInfo{com.fergusonconsultancy.cielo/com.fergusonconsultancy.cielo.MainActivity} numActivities=1 lastActiveTime=95830 supportsMultiWindow=true resizeMode=2 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{RemoteToken{a84fbc8 Task{9634b03 #9 type=standard A=10192:com.fergusonconsultancy.cielo}}} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=null topActivityInfo=ActivityInfo{4065461 com.fergusonconsultancy.cielo.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false isSleeping=false topActivityInSizeCompat=false topActivityEligibleForLetterboxEducation= false topActivityLetterboxed= false isFromDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 locusId=null displayAreaFeatureId=1 cameraCompatControlState=hidden}, remoteTransition = null, displayChange = null }
+11-04 15:51:06.899 V/WindowManager(  517):     startWCT=WindowContainerTransaction { changes = {} hops = [] errorCallbackToken=null taskFragmentOrganizer=null }
+11-04 15:51:06.901 V/WindowManager(  517):     info={id=8 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{WCT{RemoteToken{a84fbc8 Task{9634b03 #9 type=standard A=10192:com.fergusonconsultancy.cielo}}} m=OPEN f=NONE leash=Surface(name=Task=9)/@0xf49dddc sb=Rect(0, 0 - 320, 640) eb=Rect(0, 0 - 320, 640) d=0},{WCT{RemoteToken{e949367 Task{302d0b3 #1 type=home}}} m=TO_BACK f=SHOW_WALLPAPER leash=Surface(name=Task=1)/@0x77f956a sb=Rect(0, 0 - 320, 640) eb=Rect(0, 0 - 320, 640) d=0}]}
+11-04 15:51:06.901 V/WindowManagerShell(  841): Playing animation for (#8)android.os.BinderProxy@be0f647@0
+11-04 15:51:06.901 V/WindowManagerShell(  841):  try handler com.android.wm.shell.transition.DefaultMixedHandler@1a62969
+11-04 15:51:06.901 V/WindowManagerShell(  841):  try handler com.android.wm.shell.keyguard.KeyguardTransitionHandler@493cfee
+11-04 15:51:06.901 V/WindowManagerShell(  841):  try handler com.android.wm.shell.activityembedding.ActivityEmbeddingController@c5e3c8f
+11-04 15:51:06.901 V/WindowManagerShell(  841):  try handler com.android.wm.shell.recents.RecentsTransitionHandler@2d8b1c
+11-04 15:51:06.901 V/ShellRecents(  841): RecentsTransitionHandler.startAnimation: no controller found
+11-04 15:51:06.901 V/WindowManagerShell(  841):  try handler com.android.wm.shell.pip.PipTransition@76ef325
+11-04 15:51:06.903 V/WindowManagerShell(  841):  try handler com.android.wm.shell.splitscreen.StageCoordinator@bf0fcfa
+11-04 15:51:06.903 V/WindowManagerShell(  841):  try handler com.android.wm.shell.transition.RemoteTransitionHandler@60c12ab
+11-04 15:51:06.903 V/WindowManagerShell(  841): Transition doesn't have explicit remote, search filters for match for {id=8 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{WCT{android.window.IWindowContainerToken$Stub$Proxy@589ee4b} m=OPEN f=NONE leash=Surface(name=Task=9)/@0x69adc3c sb=Rect(0, 0 - 320, 640) eb=Rect(0, 0 - 320, 640) d=0},{WCT{android.window.IWindowContainerToken$Stub$Proxy@b578028} m=TO_BACK f=SHOW_WALLPAPER leash=Surface(name=Task=1)/@0x1723dc5 sb=Rect(0, 0 - 320, 640) eb=Rect(0, 0 - 320, 640) d=0}]}
+11-04 15:51:06.910 V/WindowManagerShell(  841):  Checking filter Pair{{types=[] flags=0x0] notFlags=0x0 checks=[{atype=dream independent=true modes=[OPEN,TO_FRONT] flags=NONE mustBeTask=false order=ANY topActivity=null},{atype=home independent=true modes=[CLOSE,TO_BACK] flags=NONE mustBeTask=false order=ANY topActivity=null}]} RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@c163d08, appThread = android.app.IApplicationThread$Stub$Proxy@8409ca1, debugName = LauncherToDream }}
+11-04 15:51:06.910 V/WindowManagerShell(  841):  Checking filter Pair{{types=[] flags=0x0] notFlags=0x100 checks=[{atype=home independent=true modes=[OPEN,TO_FRONT] flags=NONE mustBeTask=false order=TOP topActivity=ComponentInfo{com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity}},{atype=standard independent=true modes=[CLOSE,TO_BACK] flags=NONE mustBeTask=false order=ANY topActivity=null}]} RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@8c1eec6, appThread = android.app.IApplicationThread$Stub$Proxy@4772e87, debugName = QuickstepLaunchHome }}
+11-04 15:51:06.910 V/WindowManagerShell(  841):  Delegate animation for #8 to null
+11-04 15:51:06.910 V/WindowManagerShell(  841):  try handler com.android.wm.shell.transition.DefaultTransitionHandler@a5621b4
+11-04 15:51:06.910 V/WindowManagerShell(  841): start default transition animation, info = {id=8 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{WCT{android.window.IWindowContainerToken$Stub$Proxy@589ee4b} m=OPEN f=NONE leash=Surface(name=Task=9)/@0x69adc3c sb=Rect(0, 0 - 320, 640) eb=Rect(0, 0 - 320, 640) d=0},{WCT{android.window.IWindowContainerToken$Stub$Proxy@b578028} m=TO_BACK f=SHOW_WALLPAPER leash=Surface(name=Task=1)/@0x1723dc5 sb=Rect(0, 0 - 320, 640) eb=Rect(0, 0 - 320, 640) d=0}]}
+11-04 15:51:06.912 V/WindowManagerShell(  841): loadAnimation: anim=android.view.animation.AnimationSet@727b6e6 animAttr=0x13 type=OPEN isEntrance=false
+11-04 15:51:06.914 V/WindowManagerShell(  841): loadAnimation: anim=android.view.animation.AnimationSet@1285b72 animAttr=0x12 type=OPEN isEntrance=true
+11-04 15:51:06.916 V/WindowManagerShell(  841):  animated by com.android.wm.shell.transition.DefaultTransitionHandler@a5621b4
+11-04 15:51:06.932 I/adbd    (  423): jdwp connection from 4781
+11-04 15:51:07.033 W/Looper  (  841): Slow delivery took 117ms wmshell.anim h=android.os.Handler c=com.android.wm.shell.transition.DefaultTransitionHandler$$ExternalSyntheticLambda1@1cbcbe m=0
+11-04 15:51:07.034 W/system_server(  517): Long monitor contention with owner binder:517_1C (2421) at android.window.TaskSnapshot com.android.server.wm.ActivityTaskManagerService.takeTaskSnapshot(int, boolean)(ActivityTaskManagerService.java:3820) waiters=1 in void com.android.server.wm.BLASTSyncEngine$SyncGroup$1CommitCallback.onCommitted(android.view.SurfaceControl$Transaction) for 107ms
+11-04 15:51:07.036 W/ActivityManager(  517): Slow operation: 104ms so far, now at attachApplicationLocked: immediately before bindApplication
+11-04 15:51:07.043 W/ActivityManager(  517): Slow operation: 110ms so far, now at attachApplicationLocked: immediately after bindApplication
+11-04 15:51:07.044 W/ActivityManager(  517): Slow operation: 112ms so far, now at attachApplicationLocked: after updateLruProcessLocked
+11-04 15:51:07.047 W/TimedProcessReaper( 1785): Scheduling killing of process to refresh configuration
+11-04 15:51:07.048 W/Looper  (  841): Slow dispatch took 151ms wmshell.main h=android.os.Handler c=com.android.wm.shell.transition.Transitions$TransitionPlayerImpl$$ExternalSyntheticLambda0@eb72235 m=0
+11-04 15:51:07.048 W/Looper  (  841): Slow delivery took 124ms wmshell.main h=android.os.Handler c=com.android.wm.shell.bubbles.BubbleController$BubblesImpl$$ExternalSyntheticLambda5@a63e6ca m=0
+11-04 15:51:07.049 W/Looper  (  841): Drained
+11-04 15:51:07.054 W/Looper  (  841): Drained
+11-04 15:51:07.054 I/SP      ( 1576): GC for 'dynamic_art' (10) with ttl of 0 ms took 1 ms (0/1/0)
+11-04 15:51:07.056 I/netd    (  334): tetherGetStats() -> {[]} <0.37ms>
+11-04 15:51:07.060 D/CompatibilityChangeReporter( 4781): Compat change id reported: 171979766; UID 10192; state: ENABLED
+11-04 15:51:07.061 D/CompatibilityChangeReporter( 4781): Compat change id reported: 242716250; UID 10192; state: ENABLED
+11-04 15:51:07.063 I/netd    (  334): bandwidthSetGlobalAlert(2097152) <0.09ms>
+11-04 15:51:07.066 W/putmethod.latin( 1576): Accessing hidden method Lcom/android/org/conscrypt/OpenSSLSocketImpl;->getAlpnSelectedProtocol()[B (max-target-q,core-platform-api, reflection, denied)
+11-04 15:51:07.066 W/putmethod.latin( 1576): Accessing hidden method Lcom/android/org/conscrypt/AbstractConscryptSocket;->getAlpnSelectedProtocol()[B (max-target-q, reflection, denied)
+11-04 15:51:07.086 D/CompatibilityChangeReporter(  517): Compat change id reported: 170503758; UID 10192; state: ENABLED
+11-04 15:51:07.090 I/netd    (  334): bandwidthRemoveInterfaceQuota(eth0) <0.72ms>
+11-04 15:51:07.090 I/netd    (  334): bandwidthSetInterfaceQuota(eth0, 9223372036854775807) <0.47ms>
+11-04 15:51:07.109 I/NamespaceManager( 1438): Package com.android.refreshratecontrol name not found! Using module version.
+11-04 15:51:07.110 I/NamespaceManager( 1438): Package com.google.oslo name not found! Using module version.
+11-04 15:51:07.112 I/NamespaceManager( 1438): Package com.android.media name not found! Using module version.
+11-04 15:51:07.115 W/ziparchive( 4781): Unable to open '/data/app/~~c_Z7yH4lnf54wQhT0GOkxg==/com.fergusonconsultancy.cielo-4NEVXPtcG1u_6kaK4aaNxA==/base.dm': No such file or directory
+11-04 15:51:07.117 I/NamespaceManager( 1438): Package com.android.media.swcodec name not found! Using module version.
+11-04 15:51:07.117 I/NamespaceManager( 1438): Package com.android.appsearch name not found! Using module version.
+11-04 15:51:07.118 I/NamespaceManager( 1438): Package com.android.neuralnetworks name not found! Using module version.
+11-04 15:51:07.119 E/AppHibernationService(  517): Package com.fergusonconsultancy.cielo is not installed for user 0
+11-04 15:51:07.120 W/ziparchive( 4781): Unable to open '/data/app/~~c_Z7yH4lnf54wQhT0GOkxg==/com.fergusonconsultancy.cielo-4NEVXPtcG1u_6kaK4aaNxA==/base.dm': No such file or directory
+11-04 15:51:07.126 I/NamespaceManager( 1438): Package com.android.media name not found! Using module version.
+11-04 15:51:07.127 I/NamespaceManager( 1438): Package 1 name not found! Using module version.
+11-04 15:51:07.147 I/keystore2(  156): system/security/keystore2/src/watchdog.rs:319 - Watchdog thread idle -> terminating. Have a great day.
+11-04 15:51:07.148 D/nativeloader( 4781): Configuring clns-6 for other apk /data/app/~~c_Z7yH4lnf54wQhT0GOkxg==/com.fergusonconsultancy.cielo-4NEVXPtcG1u_6kaK4aaNxA==/base.apk. target_sdk_version=35, uses_libraries=, library_path=/data/app/~~c_Z7yH4lnf54wQhT0GOkxg==/com.fergusonconsultancy.cielo-4NEVXPtcG1u_6kaK4aaNxA==/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/com.fergusonconsultancy.cielo
+11-04 15:51:07.198 W/ndroid.systemui(  841): Cleared Reference was only reachable from finalizer (only reported once)
+11-04 15:51:07.214 V/GraphicsEnvironment( 4781): Currently set values for:
+11-04 15:51:07.215 V/GraphicsEnvironment( 4781):   angle_gl_driver_selection_pkgs=[]
+11-04 15:51:07.216 V/GraphicsEnvironment( 4781):   angle_gl_driver_selection_values=[]
+11-04 15:51:07.218 V/GraphicsEnvironment( 4781): ANGLE GameManagerService for com.fergusonconsultancy.cielo: false
+11-04 15:51:07.218 V/GraphicsEnvironment( 4781): com.fergusonconsultancy.cielo is not listed in per-application setting
+11-04 15:51:07.219 V/GraphicsEnvironment( 4781): Neither updatable production driver nor prerelease driver is supported.
+11-04 15:51:07.225 E/AppHibernationService(  517): Package com.fergusonconsultancy.cielo is not installed for any user
+11-04 15:51:07.235 I/ndroid.systemui(  841): Background young concurrent copying GC freed 166040(10MB) AllocSpace objects, 16(560KB) LOS objects, 43% free, 15MB/27MB, paused 106.921ms,57us total 323.262ms
+11-04 15:51:07.242 D/NetworkStatsObservers(  517): Unregistering RequestInfo from pid/uid:517/1000(android) for DataUsageRequest [ requestId=9, networkTemplate=NetworkTemplate: matchRule=MOBILE, matchSubscriberIds=[310260...], matchWifiNetworkKeys=[], metered=YES, defaultNetwork=NO, thresholdInBytes=3552662 ] accessLevel:3
+11-04 15:51:07.242 D/NetworkStatsObservers(  517): Registering observer for RequestInfo from pid/uid:517/1000(android) for DataUsageRequest [ requestId=10, networkTemplate=NetworkTemplate: matchRule=MOBILE, matchSubscriberIds=[310260...], matchWifiNetworkKeys=[], metered=YES, defaultNetwork=NO, thresholdInBytes=3549428 ] accessLevel:3
+11-04 15:51:07.247 I/ActivityManager(  517): Flag disabled. Ignoring finishAttachApplication from uid: 10192. pid: 4781
+11-04 15:51:07.251 W/JobScheduler(  517): Job didn't exist in JobStore: 347fe41 #u0a132/-43 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.tasks.BackgroundTasksJobService
+11-04 15:51:07.259 I/A       ( 1785): Refusing EXCLUSIVE task 24, it is already pending. Try again in 325 seconds.
+11-04 15:51:07.267 I/netd    (  334): tetherGetStats() -> {[]} <0.33ms>
+11-04 15:51:07.268 I/FedAssExpListener( 1785): Fed-ass not supported for signed out users.
+11-04 15:51:07.278 I/FedAssExpListener( 1785): Successfully processed experiments changed.
+11-04 15:51:07.290 D/libEGL  ( 4781): loaded /vendor/lib64/egl/libEGL_emulation.so
+11-04 15:51:07.300 I/netd    (  334): bandwidthRemoveInterfaceQuota(eth0) <0.83ms>
+11-04 15:51:07.305 I/netd    (  334): bandwidthSetInterfaceQuota(eth0, 9223372036854775807) <0.54ms>
+11-04 15:51:07.308 D/libEGL  ( 4781): loaded /vendor/lib64/egl/libGLESv1_CM_emulation.so
+11-04 15:51:07.323 V/WindowManagerShell(  841): Transition animation finished (aborted=false), notifying core (#8)android.os.BinderProxy@be0f647@0
+11-04 15:51:07.325 D/libEGL  ( 4781): loaded /vendor/lib64/egl/libGLESv2_emulation.so
+11-04 15:51:07.325 V/WindowManager(  517): Finish Transition #8: created at 11-04 15:51:06.626 collect-started=0.026ms request-sent=6.05ms started=12.59ms ready=265.52ms sent=270.089ms finished=699.003ms
+11-04 15:51:07.329 V/WindowManagerShell(  841): Track 0 became idle
+11-04 15:51:07.334 V/WindowManagerShell(  841): All active transition animations finished
+11-04 15:51:07.367 I/Icing   ( 1495): Indexing com.google.android.gms-apps from com.google.android.gms
+11-04 15:51:07.397 I/BgTaskExecutorImpl( 1785): Starting EXCLUSIVE background task ON_EXPERIMENTS_UPDATED.
+11-04 15:51:07.408 I/OpaEligibilityChecker( 1785): send OpaEligibilityChange broadcast to CommonBroadcastReceiver
+11-04 15:51:07.411 I/SNBWorker( 1785): Updating bootstrap data
+11-04 15:51:07.412 I/MonetActivityIntentUtil( 1785): Initialization data file not found
+11-04 15:51:07.412 W/A       ( 1785): Root proto not found when parsing Uri agsa:/data?type=searchnow.TYPE_SEARCHNOW
+11-04 15:51:07.412 W/A       ( 1785): Root proto not found in extras.
+11-04 15:51:07.415 I/DropBoxManagerService(  517): add tag=system_app_strictmode isTagEnabled=true flags=0x2
+11-04 15:51:07.421 E/AppHibernationService(  517): Package com.fergusonconsultancy.cielo is not installed for user 0
+11-04 15:51:07.421 E/AppHibernationService(  517): Package com.fergusonconsultancy.cielo is not installed for any user
+11-04 15:51:07.427 I/.gms.persistent( 1438): Background concurrent copying GC freed 456509(17MB) AllocSpace objects, 13(2940KB) LOS objects, 50% free, 16MB/33MB, paused 25us,217us total 860.173ms
+11-04 15:51:07.432 I/A       ( 1785): NGA enabled in interactor.
+11-04 15:51:07.433 I/BgTaskExecutorImpl( 1785): Starting EXCLUSIVE background task UPDATE_LAUNCHER_SHORTCUT.
+11-04 15:51:07.435 I/SNBWorker( 1785): Updating TNG bootstrap data
+11-04 15:51:07.465 W/earchbox:search( 1785): Long monitor contention with owner Blocking Thread #3 (2508) at void com.google.android.apps.gsa.j.d.d(com.google.android.apps.gsa.j.c)(PG:16) waiters=0 in void com.google.android.apps.gsa.j.d.d(com.google.android.apps.gsa.j.c) for 258ms
+11-04 15:51:07.472 I/SP      ( 1576): Sync for transformer_concept succeeded in 2034 ms: {added: [2023011913_en], metadata: false
+11-04 15:51:07.481 W/CorpusConfigHelper( 1785): Invalid input from icing corpus JSON flag.
+11-04 15:51:07.481 W/CorpusConfigHelper( 1785): android.util.MalformedJsonException: Use JsonReader.setLenient(true) to accept malformed JSON at line 123 column 2
+11-04 15:51:07.481 W/CorpusConfigHelper( 1785): 	at android.util.JsonReader.syntaxError(JsonReader.java:1162)
+11-04 15:51:07.481 W/CorpusConfigHelper( 1785): 	at android.util.JsonReader.checkLenient(JsonReader.java:840)
+11-04 15:51:07.481 W/CorpusConfigHelper( 1785): 	at android.util.JsonReader.nextInArray(JsonReader.java:615)
+11-04 15:51:07.481 W/CorpusConfigHelper( 1785): 	at android.util.JsonReader.peek(JsonReader.java:345)
+11-04 15:51:07.481 W/CorpusConfigHelper( 1785): 	at android.util.JsonReader.hasNext(JsonReader.java:321)
+11-04 15:51:07.481 W/CorpusConfigHelper( 1785): 	at com.google.android.apps.gsa.searchbox.c.b.b.k.c(PG:7)
+11-04 15:51:07.481 W/CorpusConfigHelper( 1785): 	at com.google.android.apps.gsa.searchbox.c.b.b.j.a(Unknown Source:2)
+11-04 15:51:07.481 W/CorpusConfigHelper( 1785): 	at com.google.android.apps.gsa.search.core.i.r.run(PG:5)
+11-04 15:51:07.481 W/CorpusConfigHelper( 1785): 	at com.google.android.libraries.gsa.k.a.h.run(PG:2)
+11-04 15:51:07.481 W/CorpusConfigHelper( 1785): 	at com.google.android.apps.gsa.shared.util.c.a.cf.b(PG:1)
+11-04 15:51:07.481 W/CorpusConfigHelper( 1785): 	at com.google.android.apps.gsa.shared.util.c.a.ci.run(PG:1)
+11-04 15:51:07.481 W/CorpusConfigHelper( 1785): 	at com.google.android.libraries.i.ae.run(PG:1)
+11-04 15:51:07.481 W/CorpusConfigHelper( 1785): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+11-04 15:51:07.481 W/CorpusConfigHelper( 1785): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+11-04 15:51:07.481 W/CorpusConfigHelper( 1785): 	at com.google.android.libraries.i.k.run(PG:2)
+11-04 15:51:07.481 W/CorpusConfigHelper( 1785): 	at com.google.android.libraries.i.p.run(PG:4)
+11-04 15:51:07.481 W/CorpusConfigHelper( 1785): 	at java.lang.Thread.run(Thread.java:1012)
+11-04 15:51:07.497 I/Icing   ( 1495): Indexing com.google.android.gms-internal.3p:MobileApplication from com.google.android.gms
+11-04 15:51:07.504 W/JobScheduler(  517): Job didn't exist in JobStore: d684a82 #u0a132/-189 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.tasks.BackgroundTasksJobService
+11-04 15:51:07.520 I/PackageUpdateTaskChimer( 1438): Scheduling Phenotype config package catchup updates to be 86400 seconds from now (1793807467520) [CONTEXT service_id=51 ]
+11-04 15:51:07.523 W/JobScheduler(  517): Job didn't exist in JobStore: fd4e46 #u0a132/-91 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.tasks.BackgroundTasksJobService
+11-04 15:51:07.531 I/Icing   ( 1495): IndexChimeraService.getServiceInterface callingPackage=com.google.android.googlequicksearchbox componentName=agsa_icing_connection serviceId=33
+11-04 15:51:07.536 I/Icing   ( 1495): Indexing done com.google.android.gms-internal.3p:MobileApplication
+11-04 15:51:07.538 D/CompatibilityChangeReporter( 4781): Compat change id reported: 237531167; UID 10192; state: DISABLED
+11-04 15:51:07.540 W/OpenGLRenderer( 4781): Unknown dataspace 0
+11-04 15:51:07.541 I/Icing   ( 1495): IndexChimeraService.getServiceInterface callingPackage=com.google.android.googlequicksearchbox componentName=agsa_icing_connection serviceId=32
+11-04 15:51:07.543 I/Icing   ( 1495): Indexing done com.google.android.gms-apps
+11-04 15:51:07.548 I/Icing   ( 1495): Indexing com.google.android.gms-internal.3p:MobileApplication from com.google.android.gms
+11-04 15:51:07.557 I/Icing   ( 1495): Indexing done com.google.android.gms-internal.3p:MobileApplication
+11-04 15:51:07.558 W/TimedProcessReaper( 2816): Scheduling killing of process to refresh configuration
+11-04 15:51:07.565 I/PhenotypeBackgroundRecv( 2816): Skipping com.google.android.dialer.directboot#com.google.android.dialer which doesn't use ProcessStable flags.
+11-04 15:51:07.576 D/CoreBackPreview(  517): Window{7f47c84 u0 com.fergusonconsultancy.cielo/com.fergusonconsultancy.cielo.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@2ad14ee, mPriority=0, mIsAnimationCallback=false}
+11-04 15:51:07.590 W/ServiceManagerCppClient(  402): Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10192 pid=4781
+11-04 15:51:07.591 D/PermissionCache(  402): checking android.permission.ROTATE_SURFACE_FLINGER for uid=10192 => denied (4407 us)
+11-04 15:51:07.591 W/ServiceManagerCppClient(  402): Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10192 pid=4781
+11-04 15:51:07.591 W/ServiceManagerCppClient(  402): Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10192 pid=0
+11-04 15:51:07.591 D/PermissionCache(  402): checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10192 => denied (825 us)
+11-04 15:51:07.591 D/PermissionCache(  402): checking android.permission.ROTATE_SURFACE_FLINGER for uid=10192 => denied (5574 us)
+11-04 15:51:07.592 W/ServiceManagerCppClient(  402): Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10192 pid=4781
+11-04 15:51:07.592 D/PermissionCache(  402): checking android.permission.ACCESS_SURFACE_FLINGER for uid=10192 => denied (152 us)
+11-04 15:51:07.592 W/ServiceManagerCppClient(  402): Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10192 pid=0
+11-04 15:51:07.592 D/PermissionCache(  402): checking android.permission.ACCESS_SURFACE_FLINGER for uid=10192 => denied (728 us)
+11-04 15:51:07.593 W/Icing   ( 1495): No valid account for uploading user actions
+11-04 15:51:07.599 D/CompatibilityChangeReporter(  517): Compat change id reported: 161252188; UID 10192; state: DISABLED
+11-04 15:51:07.604 E/native  ( 1495): E0000 00:00:1793807467.604320    4640 document-store.cc:1358] Failed to update per-doc-data with usage report
+11-04 15:51:07.605 I/Icing   ( 1495): Usage reports ok 0, Failed Usage reports 1, indexed 0, rejected 0
+11-04 15:51:07.614 W/OpenGLRenderer( 4781): Failed to initialize 101010-2 format, error = EGL_SUCCESS
+11-04 15:51:07.616 W/Icing   ( 1495): No valid account for uploading user actions
+11-04 15:51:07.625 I/Icing   ( 1495): Usage reports ok 0, Failed Usage reports 0, indexed 0, rejected 0
+11-04 15:51:07.630 I/hwservicemanager(  135): getTransport: Cannot find entry android.hardware.graphics.mapper@4.0::IMapper/default in either framework or device VINTF manifest.
+11-04 15:51:07.630 I/Gralloc4( 4781): mapper 4.x is not supported
+11-04 15:51:08.156 I/servicemanager(    0): Could not find android.hardware.graphics.allocator.IAllocator/default in the VINTF manifest.
+11-04 15:51:07.635 I/Icing   ( 1495): Indexing com.google.android.gms-apps from com.google.android.gms
+11-04 15:51:07.639 I/Icing   ( 1495): Indexing done com.google.android.gms-apps
+11-04 15:51:07.670 I/BgTaskExecutorImpl( 1785): Starting EXCLUSIVE background task FETCH_CONFIGS_FROM_PHENOTYPE.
+11-04 15:51:07.671 I/resolv  (  334): GetAddrInfoHandler::run: {100 100 100 983140 10192 0}
+11-04 15:51:07.673 I/SP      ( 1576): GC for 'transformer_concept' (10) with ttl of 0 ms took 0 ms (0/0/0)
+11-04 15:51:07.678 I/resolv  (  334): res_nmkquery: (QUERY, IN, AAAA)
+11-04 15:51:07.682 I/resolv  (  334): res_nmkquery: (QUERY, IN, A)
+11-04 15:51:07.683 D/CompatibilityChangeReporter( 1705): Compat change id reported: 150939131; UID 10188; state: ENABLED
+11-04 15:51:07.684 I/RescueParty(  517): Starting to observe: [com.google.android.providers.media.module, android], updated namespace: storage_native_boot
+11-04 15:51:07.685 I/PackageWatchdog(  517): Syncing state, reason: observing new packages
+11-04 15:51:07.685 I/PackageWatchdog(  517): Not pruning observers, elapsed time: 0ms
+11-04 15:51:07.685 I/PackageWatchdog(  517): Cancelling state sync, nothing to sync
+11-04 15:51:07.685 D/PackageWatchdog(  517): rescue-party-observer added the following packages to monitor [com.google.android.providers.media.module, android]
+11-04 15:51:07.685 I/PackageWatchdog(  517): Syncing state, reason: updated observers
+11-04 15:51:07.685 I/PackageWatchdog(  517): Not pruning observers, elapsed time: 0ms
+11-04 15:51:07.685 I/PackageWatchdog(  517): Saving observer state to file
+11-04 15:51:07.690 I/PackageWatchdog(  517): Syncing health check requests for packages: {com.google.android.providers.media.module, android}
+11-04 15:51:07.690 I/ExplicitHealthCheckController(  517): Service not ready to get health check supported packages. Binding...
+11-04 15:51:07.691 I/resolv  (  334): res_nsend: used send_dg 68 terrno: 0
+11-04 15:51:07.692 I/resolv  (  334): doQuery: rcode=0, ancount=2, return value=68
+11-04 15:51:07.697 I/TranscodeHelper( 1705): Empty transcode compat stale
+11-04 15:51:07.698 I/TranscodeHelper( 1705): Parsed 0 packages from resource
+11-04 15:51:07.701 I/NamespaceManager( 1438): Package com.android.refreshratecontrol name not found! Using module version.
+11-04 15:51:07.703 I/NamespaceManager( 1438): Package com.google.oslo name not found! Using module version.
+11-04 15:51:07.703 I/NamespaceManager( 1438): Package com.android.media name not found! Using module version.
+11-04 15:51:07.704 I/NamespaceManager( 1438): Package com.android.media.swcodec name not found! Using module version.
+11-04 15:51:07.704 I/NamespaceManager( 1438): Package com.android.appsearch name not found! Using module version.
+11-04 15:51:07.704 I/NamespaceManager( 1438): Package com.android.neuralnetworks name not found! Using module version.
+11-04 15:51:07.705 I/NamespaceManager( 1438): Package com.android.media name not found! Using module version.
+11-04 15:51:07.705 I/NamespaceManager( 1438): Package 1 name not found! Using module version.
+11-04 15:51:07.706 E/SettingsToPropertiesMapper(  517): key=persist.device_config.storage_native_boot.transcode_compat_manifest value=com.yelp.android,0,com.yy.biu,0,com.groupme.android,0,air.tv.douyu.android,0,com.baidu.mbaby,0,com.vlocker.locker,0,com.znxh.hyhuo,0,com.yixia.xiaokaxiu,0 exceeds system property max length.
+11-04 15:51:07.707 I/Environment( 1576): Environment.isPackageInstalled():237 com.bitstrips.imoji is not installed
+11-04 15:51:07.708 I/SP      ( 1576): Sync for emoji succeeded in 2261 ms: {added: [60932fe37d5f6d7a3e60488d8a1755c4], metadata: false
+11-04 15:51:07.710 I/TranscodeHelper( 1705): Parsed 8 packages from device config
+11-04 15:51:07.713 I/resolv  (  334): res_nsend: used send_dg 86 terrno: 0
+11-04 15:51:07.713 I/resolv  (  334): doQuery: rcode=0, ancount=0, return value=86
+11-04 15:51:07.722 I/MediaApplication( 1705): PhotoPickerSettingsActivity is now disabled.
+11-04 15:51:07.723 D/ActivityManager(  517): sync unfroze 1583 com.google.android.ext.services for 6
+11-04 15:51:07.723 I/ExplicitHealthCheckController(  517): Explicit health check service is bound
+11-04 15:51:07.726 I/MediaProvider( 1705): Changed PhotoPickerGetContentActivity component state to STATE_ENABLED ( 1 )
+11-04 15:51:07.727 D/TrafficStats( 4781): tagSocket(88) with statsTag=0xffffffff, statsUid=-1
+11-04 15:51:07.730 I/MediaProvider( 1705): Changed PhotoPickerUserSelectActivity component state to STATE_ENABLED ( 1 )
+11-04 15:51:07.734 I/Icing   ( 1495): Indexing com.google.android.gms-apps from com.google.android.gms
+11-04 15:51:07.749 I/ExplicitHealthCheckController(  517): Explicit health check service is connected ComponentInfo{com.google.android.ext.services/android.ext.services.watchdog.ExplicitHealthCheckServiceImpl}
+11-04 15:51:07.750 I/ExplicitHealthCheckController(  517): Service initialized, syncing requests
+11-04 15:51:07.751 I/PackageWatchdog(  517): Syncing health check requests for packages: {com.google.android.providers.media.module, android}
+11-04 15:51:07.751 D/ExplicitHealthCheckController(  517): Getting health check supported packages
+11-04 15:51:07.752 I/ExplicitHealthCheckController(  517): Explicit health check supported packages [PackageConfig{com.google.android.networkstack, 86400000}]
+11-04 15:51:07.752 D/PackageWatchdog(  517): Received supported packages [PackageConfig{com.google.android.networkstack, 86400000}]
+11-04 15:51:07.753 I/PackageWatchdog(  517): Updated health check state for package com.google.android.providers.media.module: INACTIVE -> PASSED
+11-04 15:51:07.753 I/PackageWatchdog(  517): Updated health check state for package android: INACTIVE -> PASSED
+11-04 15:51:07.753 I/PackageWatchdog(  517): Syncing state, reason: updated health check supported packages [PackageConfig{com.google.android.networkstack, 86400000}]
+11-04 15:51:07.753 D/ExplicitHealthCheckController(  517): Getting health check requested packages
+11-04 15:51:07.754 I/PackageWatchdog(  517): Syncing health check requests for packages: {}
+11-04 15:51:07.755 D/ExplicitHealthCheckController(  517): Getting health check supported packages
+11-04 15:51:07.756 I/PackageWatchdog(  517): Saving observer state to file
+11-04 15:51:07.756 I/ExplicitHealthCheckController(  517): Explicit health check requested packages []
+11-04 15:51:07.756 I/ExplicitHealthCheckController(  517): No more health check requests, unbinding...
+11-04 15:51:07.758 I/ExplicitHealthCheckController(  517): Explicit health check service is unbound
+11-04 15:51:07.758 I/ExplicitHealthCheckController(  517): Explicit health check supported packages [PackageConfig{com.google.android.networkstack, 86400000}]
+11-04 15:51:07.769 I/PhenotypeBackgroundRecv( 1585): Successfully updated snapshot for com.google.android.libraries.mdi.sync#com.google.android.apps.wellbeing
+11-04 15:51:07.771 D/PackageWatchdog(  517): Received supported packages [PackageConfig{com.google.android.networkstack, 86400000}]
+11-04 15:51:07.771 I/ExplicitHealthCheckController(  517): Service not ready to get health check requested packages. Binding...
+11-04 15:51:07.773 E/AppOps  (  517): Bad call made by uid 1000. Package "android" does not belong to uid 10177.
+11-04 15:51:07.783 E/AppOps  (  517): Cannot noteOperation
+11-04 15:51:07.783 E/AppOps  (  517): java.lang.SecurityException: Specified package "android" under uid 10177 but it is not
+11-04 15:51:07.783 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService.verifyAndGetBypass(AppOpsService.java:3886)
+11-04 15:51:07.783 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService.verifyAndGetBypass(AppOpsService.java:3746)
+11-04 15:51:07.783 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService.noteOperationUnchecked(AppOpsService.java:2629)
+11-04 15:51:07.783 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService.noteOperationImpl(AppOpsService.java:2617)
+11-04 15:51:07.783 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService.-$$Nest$mnoteOperationImpl(AppOpsService.java:0)
+11-04 15:51:07.783 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService$CheckOpsDelegateDispatcher.$r8$lambda$-zO2p3wazaltMFolMcvKOcU7eN4(AppOpsService.java:0)
+11-04 15:51:07.783 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService$CheckOpsDelegateDispatcher$$ExternalSyntheticLambda3.apply(R8$$SyntheticClass:0)
+11-04 15:51:07.783 E/AppOps  (  517): 	at com.android.server.policy.AppOpsPolicy.noteOperation(AppOpsPolicy.java:235)
+11-04 15:51:07.783 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService$CheckOpsDelegateDispatcher.noteOperation(AppOpsService.java:6434)
+11-04 15:51:07.783 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService.noteOperation(AppOpsService.java:2598)
+11-04 15:51:07.783 E/AppOps  (  517): 	at android.app.AppOpsManager.noteOpNoThrow(AppOpsManager.java:8420)
+11-04 15:51:07.783 E/AppOps  (  517): 	at com.android.server.wm.ActivityTaskManagerService.hasSystemAlertWindowPermission(ActivityTaskManagerService.java:1076)
+11-04 15:51:07.783 E/AppOps  (  517): 	at com.android.server.wm.ActivityTaskManagerService$LocalService.hasSystemAlertWindowPermission(ActivityTaskManagerService.java:7006)
+11-04 15:51:07.783 E/AppOps  (  517): 	at com.android.server.am.ActiveServices.shouldAllowFgsStartForegroundNoBindingCheckLocked(ActiveServices.java:7910)
+11-04 15:51:07.783 E/AppOps  (  517): 	at com.android.server.am.ActiveServices.shouldAllowFgsStartForegroundWithBindingCheckLocked(ActiveServices.java:7795)
+11-04 15:51:07.783 E/AppOps  (  517): 	at com.android.server.am.ActiveServices.setFgsRestrictionLocked(ActiveServices.java:7474)
+11-04 15:51:07.783 E/AppOps  (  517): 	at com.android.server.am.ActiveServices.bindServiceLocked(ActiveServices.java:3744)
+11-04 15:51:07.783 E/AppOps  (  517): 	at com.android.server.am.ActivityManagerService.bindServiceInstance(ActivityManagerService.java:13404)
+11-04 15:51:07.783 E/AppOps  (  517): 	at com.android.server.am.ActivityManagerService.bindServiceInstance(ActivityManagerService.java:13368)
+11-04 15:51:07.783 E/AppOps  (  517): 	at android.app.ContextImpl.bindServiceCommon(ContextImpl.java:2127)
+11-04 15:51:07.783 E/AppOps  (  517): 	at android.app.ContextImpl.bindServiceAsUser(ContextImpl.java:2040)
+11-04 15:51:07.783 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController.bindService(ExplicitHealthCheckController.java:345)
+11-04 15:51:07.783 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController.prepareServiceLocked(ExplicitHealthCheckController.java:450)
+11-04 15:51:07.783 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController.getRequestedPackages(ExplicitHealthCheckController.java:268)
+11-04 15:51:07.783 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController.lambda$syncRequests$3(ExplicitHealthCheckController.java:153)
+11-04 15:51:07.783 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController.$r8$lambda$e0trryK6lMIa0Oyq_R_L8I9fbPU(ExplicitHealthCheckController.java:0)
+11-04 15:51:07.783 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController$$ExternalSyntheticLambda0.accept(R8$$SyntheticClass:0)
+11-04 15:51:07.783 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController.lambda$getSupportedPackages$4(ExplicitHealthCheckController.java:251)
+11-04 15:51:07.783 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController.$r8$lambda$SRa9fw8RTJfzefVJ1-zsa9_9yG0(ExplicitHealthCheckController.java:0)
+11-04 15:51:07.783 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController$$ExternalSyntheticLambda1.onResult(R8$$SyntheticClass:0)
+11-04 15:51:07.783 E/AppOps  (  517): 	at android.os.RemoteCallback.sendResult(RemoteCallback.java:75)
+11-04 15:51:07.783 E/AppOps  (  517): 	at android.os.RemoteCallback$1.sendResult(RemoteCallback.java:52)
+11-04 15:51:07.783 E/AppOps  (  517): 	at android.os.IRemoteCallback$Stub.onTransact(IRemoteCallback.java:87)
+11-04 15:51:07.783 E/AppOps  (  517): 	at android.os.Binder.execTransactInternal(Binder.java:1344)
+11-04 15:51:07.783 E/AppOps  (  517): 	at android.os.Binder.execTransact(Binder.java:1275)
+11-04 15:51:07.784 E/AppOps  (  517): Bad call made by uid 1000. Package "android" does not belong to uid 10177.
+11-04 15:51:07.784 E/AppOps  (  517): Cannot checkOperation
+11-04 15:51:07.784 E/AppOps  (  517): java.lang.SecurityException: Specified package "android" under uid 10177 but it is not
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService.verifyAndGetBypass(AppOpsService.java:3886)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService.verifyAndGetBypass(AppOpsService.java:3746)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService.verifyAndGetBypass(AppOpsService.java:3738)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService.checkOperationUnchecked(AppOpsService.java:2417)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService.checkOperationImpl(AppOpsService.java:2400)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService.-$$Nest$mcheckOperationImpl(AppOpsService.java:0)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService$CheckOpsDelegateDispatcher.$r8$lambda$fx57Sum-uA3sXo7NCFwrI3iq4WM(AppOpsService.java:0)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService$CheckOpsDelegateDispatcher$$ExternalSyntheticLambda9.apply(R8$$SyntheticClass:0)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.policy.AppOpsPolicy.checkOperation(AppOpsPolicy.java:221)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService$CheckOpsDelegateDispatcher.checkOperation(AppOpsService.java:6389)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService.checkOperation(AppOpsService.java:2385)
+11-04 15:51:07.784 E/AppOps  (  517): 	at android.app.AppOpsManager.checkOpNoThrow(AppOpsManager.java:8681)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.am.ActiveServices.shouldAllowFgsStartForegroundNoBindingCheckLocked(ActiveServices.java:7965)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.am.ActiveServices.shouldAllowFgsStartForegroundWithBindingCheckLocked(ActiveServices.java:7795)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.am.ActiveServices.setFgsRestrictionLocked(ActiveServices.java:7474)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.am.ActiveServices.bindServiceLocked(ActiveServices.java:3744)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.am.ActivityManagerService.bindServiceInstance(ActivityManagerService.java:13404)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.am.ActivityManagerService.bindServiceInstance(ActivityManagerService.java:13368)
+11-04 15:51:07.784 E/AppOps  (  517): 	at android.app.ContextImpl.bindServiceCommon(ContextImpl.java:2127)
+11-04 15:51:07.784 E/AppOps  (  517): 	at android.app.ContextImpl.bindServiceAsUser(ContextImpl.java:2040)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController.bindService(ExplicitHealthCheckController.java:345)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController.prepareServiceLocked(ExplicitHealthCheckController.java:450)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController.getRequestedPackages(ExplicitHealthCheckController.java:268)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController.lambda$syncRequests$3(ExplicitHealthCheckController.java:153)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController.$r8$lambda$e0trryK6lMIa0Oyq_R_L8I9fbPU(ExplicitHealthCheckController.java:0)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController$$ExternalSyntheticLambda0.accept(R8$$SyntheticClass:0)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController.lambda$getSupportedPackages$4(ExplicitHealthCheckController.java:251)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController.$r8$lambda$SRa9fw8RTJfzefVJ1-zsa9_9yG0(ExplicitHealthCheckController.java:0)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController$$ExternalSyntheticLambda1.onResult(R8$$SyntheticClass:0)
+11-04 15:51:07.784 E/AppOps  (  517): 	at android.os.RemoteCallback.sendResult(RemoteCallback.java:75)
+11-04 15:51:07.784 E/AppOps  (  517): 	at android.os.RemoteCallback$1.sendResult(RemoteCallback.java:52)
+11-04 15:51:07.784 E/AppOps  (  517): 	at android.os.IRemoteCallback$Stub.onTransact(IRemoteCallback.java:87)
+11-04 15:51:07.784 E/AppOps  (  517): 	at android.os.Binder.execTransactInternal(Binder.java:1344)
+11-04 15:51:07.784 E/AppOps  (  517): 	at android.os.Binder.execTransact(Binder.java:1275)
+11-04 15:51:07.784 E/AppOps  (  517): Bad call made by uid 1000. Package "android" does not belong to uid 10177.
+11-04 15:51:07.784 E/AppOps  (  517): Cannot checkOperation
+11-04 15:51:07.784 E/AppOps  (  517): java.lang.SecurityException: Specified package "android" under uid 10177 but it is not
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService.verifyAndGetBypass(AppOpsService.java:3886)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService.verifyAndGetBypass(AppOpsService.java:3746)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService.verifyAndGetBypass(AppOpsService.java:3738)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService.checkOperationUnchecked(AppOpsService.java:2417)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService.checkOperationImpl(AppOpsService.java:2400)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService.-$$Nest$mcheckOperationImpl(AppOpsService.java:0)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService$CheckOpsDelegateDispatcher.$r8$lambda$fx57Sum-uA3sXo7NCFwrI3iq4WM(AppOpsService.java:0)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService$CheckOpsDelegateDispatcher$$ExternalSyntheticLambda9.apply(R8$$SyntheticClass:0)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.policy.AppOpsPolicy.checkOperation(AppOpsPolicy.java:221)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService$CheckOpsDelegateDispatcher.checkOperation(AppOpsService.java:6389)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService.checkOperation(AppOpsService.java:2385)
+11-04 15:51:07.784 E/AppOps  (  517): 	at android.app.AppOpsManager.checkOpNoThrow(AppOpsManager.java:8681)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.am.ActiveServices.shouldAllowFgsStartForegroundNoBindingCheckLocked(ActiveServices.java:7974)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.am.ActiveServices.shouldAllowFgsStartForegroundWithBindingCheckLocked(ActiveServices.java:7795)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.am.ActiveServices.setFgsRestrictionLocked(ActiveServices.java:7474)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.am.ActiveServices.bindServiceLocked(ActiveServices.java:3744)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.am.ActivityManagerService.bindServiceInstance(ActivityManagerService.java:13404)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.am.ActivityManagerService.bindServiceInstance(ActivityManagerService.java:13368)
+11-04 15:51:07.784 E/AppOps  (  517): 	at android.app.ContextImpl.bindServiceCommon(ContextImpl.java:2127)
+11-04 15:51:07.784 E/AppOps  (  517): 	at android.app.ContextImpl.bindServiceAsUser(ContextImpl.java:2040)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController.bindService(ExplicitHealthCheckController.java:345)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController.prepareServiceLocked(ExplicitHealthCheckController.java:450)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController.getRequestedPackages(ExplicitHealthCheckController.java:268)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController.lambda$syncRequests$3(ExplicitHealthCheckController.java:153)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController.$r8$lambda$e0trryK6lMIa0Oyq_R_L8I9fbPU(ExplicitHealthCheckController.java:0)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController$$ExternalSyntheticLambda0.accept(R8$$SyntheticClass:0)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController.lambda$getSupportedPackages$4(ExplicitHealthCheckController.java:251)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController.$r8$lambda$SRa9fw8RTJfzefVJ1-zsa9_9yG0(ExplicitHealthCheckController.java:0)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController$$ExternalSyntheticLambda1.onResult(R8$$SyntheticClass:0)
+11-04 15:51:07.784 E/AppOps  (  517): 	at android.os.RemoteCallback.sendResult(RemoteCallback.java:75)
+11-04 15:51:07.784 E/AppOps  (  517): 	at android.os.RemoteCallback$1.sendResult(RemoteCallback.java:52)
+11-04 15:51:07.784 E/AppOps  (  517): 	at android.os.IRemoteCallback$Stub.onTransact(IRemoteCallback.java:87)
+11-04 15:51:07.784 E/AppOps  (  517): 	at android.os.Binder.execTransactInternal(Binder.java:1344)
+11-04 15:51:07.784 E/AppOps  (  517): 	at android.os.Binder.execTransact(Binder.java:1275)
+11-04 15:51:07.784 E/AppOps  (  517): Bad call made by uid 1000. Package "android" does not belong to uid 10177.
+11-04 15:51:07.784 E/AppOps  (  517): Cannot checkOperation
+11-04 15:51:07.784 E/AppOps  (  517): java.lang.SecurityException: Specified package "android" under uid 10177 but it is not
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService.verifyAndGetBypass(AppOpsService.java:3886)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService.verifyAndGetBypass(AppOpsService.java:3746)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService.verifyAndGetBypass(AppOpsService.java:3738)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService.checkOperationUnchecked(AppOpsService.java:2417)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService.checkOperationImpl(AppOpsService.java:2400)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService.-$$Nest$mcheckOperationImpl(AppOpsService.java:0)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService$CheckOpsDelegateDispatcher.$r8$lambda$fx57Sum-uA3sXo7NCFwrI3iq4WM(AppOpsService.java:0)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService$CheckOpsDelegateDispatcher$$ExternalSyntheticLambda9.apply(R8$$SyntheticClass:0)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.policy.AppOpsPolicy.checkOperation(AppOpsPolicy.java:221)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService$CheckOpsDelegateDispatcher.checkOperation(AppOpsService.java:6389)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.appop.AppOpsService.checkOperation(AppOpsService.java:2385)
+11-04 15:51:07.784 E/AppOps  (  517): 	at android.app.AppOpsManager.checkOpNoThrow(AppOpsManager.java:8681)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.am.ActiveServices.shouldAllowFgsStartForegroundNoBindingCheckLocked(ActiveServices.java:7977)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.am.ActiveServices.shouldAllowFgsStartForegroundWithBindingCheckLocked(ActiveServices.java:7795)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.am.ActiveServices.setFgsRestrictionLocked(ActiveServices.java:7474)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.am.ActiveServices.bindServiceLocked(ActiveServices.java:3744)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.am.ActivityManagerService.bindServiceInstance(ActivityManagerService.java:13404)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.am.ActivityManagerService.bindServiceInstance(ActivityManagerService.java:13368)
+11-04 15:51:07.784 E/AppOps  (  517): 	at android.app.ContextImpl.bindServiceCommon(ContextImpl.java:2127)
+11-04 15:51:07.784 E/AppOps  (  517): 	at android.app.ContextImpl.bindServiceAsUser(ContextImpl.java:2040)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController.bindService(ExplicitHealthCheckController.java:345)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController.prepareServiceLocked(ExplicitHealthCheckController.java:450)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController.getRequestedPackages(ExplicitHealthCheckController.java:268)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController.lambda$syncRequests$3(ExplicitHealthCheckController.java:153)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController.$r8$lambda$e0trryK6lMIa0Oyq_R_L8I9fbPU(ExplicitHealthCheckController.java:0)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController$$ExternalSyntheticLambda0.accept(R8$$SyntheticClass:0)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController.lambda$getSupportedPackages$4(ExplicitHealthCheckController.java:251)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController.$r8$lambda$SRa9fw8RTJfzefVJ1-zsa9_9yG0(ExplicitHealthCheckController.java:0)
+11-04 15:51:07.784 E/AppOps  (  517): 	at com.android.server.ExplicitHealthCheckController$$ExternalSyntheticLambda1.onResult(R8$$SyntheticClass:0)
+11-04 15:51:07.784 E/AppOps  (  517): 	at android.os.RemoteCallback.sendResult(RemoteCallback.java:75)
+11-04 15:51:07.784 E/AppOps  (  517): 	at android.os.RemoteCallback$1.sendResult(RemoteCallback.java:52)
+11-04 15:51:07.784 E/AppOps  (  517): 	at android.os.IRemoteCallback$Stub.onTransact(IRemoteCallback.java:87)
+11-04 15:51:07.784 E/AppOps  (  517): 	at android.os.Binder.execTransactInternal(Binder.java:1344)
+11-04 15:51:07.784 E/AppOps  (  517): 	at android.os.Binder.execTransact(Binder.java:1275)
+11-04 15:51:07.787 I/ExplicitHealthCheckController(  517): Explicit health check service is connected ComponentInfo{com.google.android.ext.services/android.ext.services.watchdog.ExplicitHealthCheckServiceImpl}
+11-04 15:51:07.788 I/ExplicitHealthCheckController(  517): Explicit health check service is bound
+11-04 15:51:07.788 I/ExplicitHealthCheckController(  517): Service initialized, syncing requests
+11-04 15:51:07.788 I/PackageWatchdog(  517): Syncing health check requests for packages: {}
+11-04 15:51:07.789 D/ExplicitHealthCheckController(  517): Getting health check supported packages
+11-04 15:51:07.789 I/ExplicitHealthCheckController(  517): Explicit health check supported packages [PackageConfig{com.google.android.networkstack, 86400000}]
+11-04 15:51:07.789 D/PackageWatchdog(  517): Received supported packages [PackageConfig{com.google.android.networkstack, 86400000}]
+11-04 15:51:07.789 D/ExplicitHealthCheckController(  517): Getting health check requested packages
+11-04 15:51:07.789 I/ExplicitHealthCheckController(  517): Explicit health check requested packages []
+11-04 15:51:07.789 I/ExplicitHealthCheckController(  517): No more health check requests, unbinding...
+11-04 15:51:07.790 I/ExplicitHealthCheckController(  517): Explicit health check service is unbound
+11-04 15:51:07.810 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_birthdaydoodle_jar__name to integer.
+11-04 15:51:07.810 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_call_jar__name to integer.
+11-04 15:51:07.810 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_canvas_jar__name to integer.
+11-04 15:51:07.810 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_chkpkg_jar__name to integer.
+11-04 15:51:07.810 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_crashtest_jar__name to integer.
+11-04 15:51:07.810 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_dining_jar__name to integer.
+11-04 15:51:07.810 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_doodle_notifications_jar__name to integer.
+11-04 15:51:07.810 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_imageviewer_jar__name to integer.
+11-04 15:51:07.810 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_ipa_jar__name to integer.
+11-04 15:51:07.810 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_jslocation_jar__name to integer.
+11-04 15:51:07.811 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_localintent_jar__name to integer.
+11-04 15:51:07.811 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_messaging_jar__name to integer.
+11-04 15:51:07.811 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_nativesrp_activity_jar__name to integer.
+11-04 15:51:07.811 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_nativesrp_presenter_jar__name to integer.
+11-04 15:51:07.811 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_nowcontent_jar__name to integer.
+11-04 15:51:07.811 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_recents_activity_jar__name to integer.
+11-04 15:51:07.811 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_save_jar__name to integer.
+11-04 15:51:07.811 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_searchresults_activity_jar__name to integer.
+11-04 15:51:07.811 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_test_jar__name to integer.
+11-04 15:51:07.811 W/A       ( 1785): Can't format flag AndroidGsaVelourJars__velour_weather_jar__name to integer.
+11-04 15:51:07.811 W/A       ( 1785): Can't format flag bindle_flags__bloblobber_blob to integer.
+11-04 15:51:07.811 W/A       ( 1785): Can't format flag bindle_flags__velour_jar to integer.
+11-04 15:51:07.834 W/TimedProcessReaper( 1785): Scheduling killing of process to refresh configuration
+11-04 15:51:07.845 I/Icing   ( 1495): Indexing com.google.android.gms-internal.3p:MobileApplication from com.google.android.gms
+11-04 15:51:07.853 I/PhenotypeBackgroundRecv( 1585): Skipping com.google.android.gms.kids#com.google.android.apps.wellbeing which doesn't use ProcessStable flags.
+11-04 15:51:07.854 W/JobScheduler(  517): Job didn't exist in JobStore: b2648a5 #u0a132/-43 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.tasks.BackgroundTasksJobService
+11-04 15:51:07.856 I/SP      ( 1576): Sync for content_cache succeeded in 1728 ms: {added: [8722425f4121ffdea802b1066df73991, e9a5a2de48a4f8b9a658b411bcfb375d, fa1da98da1212aad6fb9a8efaff48148], removed: [3514c1e9a5c7d614d5646bd12032bfa6], metadata: true
+11-04 15:51:07.862 I/A       ( 1785): Refusing EXCLUSIVE task 21, it is already pending. Try again in 359 seconds.
+11-04 15:51:07.866 D/CarrierSvcBindHelper( 1054): onPackageAdded: com.fergusonconsultancy.cielo
+11-04 15:51:07.871 I/SdkSandboxManager(  517): No SDKs used. Skipping SDK data reconcilation for CallingInfo{mUid=10192, mPackageName='com.fergusonconsultancy.cielo, mAppProcessToken='null'}
+11-04 15:51:07.874 D/CarrierSvcBindHelper( 1054): No carrier app for: 0
+11-04 15:51:07.875 D/CompatibilityChangeReporter(  517): Compat change id reported: 151105954; UID 1000; state: ENABLED
+11-04 15:51:07.875 E/AppOps  (  517): attributionTag VCN not declared in manifest of android
+11-04 15:51:07.876 D/TransparencyService(  517): Not an update. Skipping...
+11-04 15:51:07.877 I/RoleService(  517): Granting default roles...
+11-04 15:51:07.886 I/PermissionControllerServiceImpl(  857): Updating user sensitive for uid 10192
+11-04 15:51:07.887 D/ActivityManager(  517): sync unfroze 1754 com.google.android.apps.youtube.music for 3
+11-04 15:51:07.890 V/BackupManagerConstants(  517): getFullBackupIntervalMilliseconds(...) returns 86400000
+11-04 15:51:07.915 I/s.nexuslauncher( 1098): Background concurrent copying GC freed 80087(3856KB) AllocSpace objects, 3(48KB) LOS objects, 49% free, 5387KB/10MB, paused 24us,50us total 120.873ms
+11-04 15:51:07.919 W/BpBinder( 1438): Large outgoing transaction of 329800 bytes, interface descriptor , code 4
+11-04 15:51:07.920 W/System  ( 1098): A resource failed to call release. 
+11-04 15:51:07.921 W/System  ( 1098): A resource failed to call release. 
+11-04 15:51:07.921 W/System  ( 1098): A resource failed to call release. 
+11-04 15:51:07.943 I/InputReader(  517): Reconfiguring input devices, changes=KEYBOARD_LAYOUTS
+11-04 15:51:07.946 V/BackupManagerConstants(  517): getFullBackupRequiredNetworkType(...) returns 2
+11-04 15:51:07.949 V/BackupManagerConstants(  517): getFullBackupRequireCharging(...) returns true
+11-04 15:51:07.950 D/CompatibilityChangeReporter(  517): Compat change id reported: 271850009; UID 1000; state: ENABLED
+11-04 15:51:07.965 D/StylusManager(  841): Stylus InputDevice changed: 12 virtio_input_multi_touch_9
+11-04 15:51:07.969 D/StylusManager(  841): Stylus InputDevice changed: 11 virtio_input_multi_touch_8
+11-04 15:51:07.977 D/StylusManager(  841): Stylus InputDevice changed: 6 virtio_input_multi_touch_3
+11-04 15:51:07.984 D/ImsResolver( 1054): maybeAddedImsService, packageName: com.fergusonconsultancy.cielo
+11-04 15:51:07.985 D/StylusManager(  841): Stylus InputDevice changed: 8 virtio_input_multi_touch_5
+11-04 15:51:08.008 W/Looper  (  517): Slow dispatch took 132ms main h=android.app.ActivityThread$H c=android.app.LoadedApk$ReceiverDispatcher$Args$$ExternalSyntheticLambda0@9ec6a6e m=0
+11-04 15:51:08.019 D/StylusManager(  841): Stylus InputDevice changed: 4 virtio_input_multi_touch_1
+11-04 15:51:08.030 E/RoleControllerServiceImpl(  857): Default/fallback role holder package doesn't qualify for the role, package: com.google.android.gms.supervision, role: android.app.role.SYSTEM_SUPERVISION
+11-04 15:51:08.034 I/Role    (  857): com.google.android.gms not qualified for android.app.role.SYSTEM_CALL_STREAMING due to missing RequiredComponent{mIntentFilterData=IntentFilterData{mAction='android.telecom.CallStreamingService', mCategories='[]', mDataScheme='null', mDataType='null'}, mMinTargetSdkVersion=1, mFlags='0', mPermission='android.permission.BIND_CALL_STREAMING_SERVICE', mQueryFlags=0, mMetaData=[]}
+11-04 15:51:08.035 E/RoleControllerServiceImpl(  857): Default/fallback role holder package doesn't qualify for the role, package: com.google.android.gms, role: android.app.role.SYSTEM_CALL_STREAMING
+11-04 15:51:08.038 W/Role    (  857): Default holder doesn't have required signing certificate: com.google.android.apps.work.clouddpc:23962F4B43B9857638EA66F4D419518EAE282491ACDA4B94707BD59003C45E58
+11-04 15:51:08.048 D/StylusManager(  841): Stylus InputDevice changed: 10 virtio_input_multi_touch_7
+11-04 15:51:08.063 I/ssioncontroller(  857): Background young concurrent copying GC freed 86348(4428KB) AllocSpace objects, 0(0B) LOS objects, 38% free, 7020KB/11MB, paused 16us,12us total 167.799ms
+11-04 15:51:08.065 I/Icing   ( 1495): Indexing done com.google.android.gms-internal.3p:MobileApplication
+11-04 15:51:08.066 I/NamespaceManager( 1438): Package com.android.refreshratecontrol name not found! Using module version.
+11-04 15:51:08.070 I/NamespaceManager( 1438): Package com.google.oslo name not found! Using module version.
+11-04 15:51:08.071 I/NamespaceManager( 1438): Package com.android.media name not found! Using module version.
+11-04 15:51:08.072 I/NamespaceManager( 1438): Package com.android.media.swcodec name not found! Using module version.
+11-04 15:51:08.073 I/NamespaceManager( 1438): Package com.android.appsearch name not found! Using module version.
+11-04 15:51:08.082 I/NamespaceManager( 1438): Package com.android.neuralnetworks name not found! Using module version.
+11-04 15:51:08.084 I/NamespaceManager( 1438): Package com.android.media name not found! Using module version.
+11-04 15:51:08.088 I/Icing   ( 1495): Indexing done com.google.android.gms-apps
+11-04 15:51:08.100 I/NamespaceManager( 1438): Package 1 name not found! Using module version.
+11-04 15:51:08.125 I/Icing   ( 1495): Indexing com.google.android.gms-internal.3p:MobileApplication from com.google.android.gms
+11-04 15:51:08.125 D/EGL_emulation(  841): app_time_stats: avg=2104.68ms min=2104.68ms max=2104.68ms count=1
+11-04 15:51:08.127 D/StylusManager(  841): Stylus InputDevice changed: 7 virtio_input_multi_touch_4
+11-04 15:51:08.131 I/putmethod.latin( 1576): Background young concurrent copying GC freed 57978(3037KB) AllocSpace objects, 0(0B) LOS objects, 13% free, 17MB/19MB, paused 23.899ms,43us total 363.165ms
+11-04 15:51:08.144 I/Icing   ( 1495): Indexing done com.google.android.gms-internal.3p:MobileApplication
+11-04 15:51:08.154 D/StylusManager(  841): Stylus InputDevice changed: 14 virtio_input_multi_touch_11
+11-04 15:51:08.155 D/StylusManager(  841): Stylus InputDevice changed: 9 virtio_input_multi_touch_6
+11-04 15:51:08.155 D/StylusManager(  841): Stylus InputDevice changed: 5 virtio_input_multi_touch_2
+11-04 15:51:08.156 D/StylusManager(  841): Stylus InputDevice changed: 13 virtio_input_multi_touch_10
+11-04 15:51:08.183 I/A       ( 1785): Refusing EXCLUSIVE task 24, it is already pending. Try again in 324 seconds.
+11-04 15:51:08.184 I/FedAssExpListener( 1785): Fed-ass not supported for signed out users.
+11-04 15:51:08.185 I/FedAssExpListener( 1785): Successfully processed experiments changed.
+11-04 15:51:08.186 I/A       ( 1785): NGA enabled in interactor.
+11-04 15:51:08.187 D/StatusBarIconController(  841): ignoring old pipeline callbacks, because the new mobile icons are enabled
+11-04 15:51:08.188 I/Icing   ( 1495): Indexing com.google.android.gms-apps from com.google.android.gms
+11-04 15:51:08.193 I/Icing   ( 1495): Indexing done com.google.android.gms-apps
+11-04 15:51:08.218 I/OpaEligibilityChecker( 1785): send OpaEligibilityChange broadcast to CommonBroadcastReceiver
+11-04 15:51:08.252 I/Icing   ( 1495): IndexChimeraService.getServiceInterface callingPackage=com.google.android.googlequicksearchbox componentName=agsa_icing_connection serviceId=33
+11-04 15:51:08.254 I/Icing   ( 1495): IndexChimeraService.getServiceInterface callingPackage=com.google.android.googlequicksearchbox componentName=agsa_icing_connection serviceId=32
+11-04 15:51:08.256 W/Icing   ( 1495): No valid account for uploading user actions
+11-04 15:51:08.259 W/WindowMagnificationMgr(  517): requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-04 15:51:08.237 W/CorpusConfigHelper( 1785): Invalid input from icing corpus JSON flag.
+11-04 15:51:08.237 W/CorpusConfigHelper( 1785): android.util.MalformedJsonException: Use JsonReader.setLenient(true) to accept malformed JSON at line 123 column 2
+11-04 15:51:08.237 W/CorpusConfigHelper( 1785): 	at android.util.JsonReader.syntaxError(JsonReader.java:1162)
+11-04 15:51:08.237 W/CorpusConfigHelper( 1785): 	at android.util.JsonReader.checkLenient(JsonReader.java:840)
+11-04 15:51:08.237 W/CorpusConfigHelper( 1785): 	at android.util.JsonReader.nextInArray(JsonReader.java:615)
+11-04 15:51:08.237 W/CorpusConfigHelper( 1785): 	at android.util.JsonReader.peek(JsonReader.java:345)
+11-04 15:51:08.237 W/CorpusConfigHelper( 1785): 	at android.util.JsonReader.hasNext(JsonReader.java:321)
+11-04 15:51:08.237 W/CorpusConfigHelper( 1785): 	at com.google.android.apps.gsa.searchbox.c.b.b.k.c(PG:7)
+11-04 15:51:08.237 W/CorpusConfigHelper( 1785): 	at com.google.android.apps.gsa.searchbox.c.b.b.j.a(Unknown Source:2)
+11-04 15:51:08.237 W/CorpusConfigHelper( 1785): 	at com.google.android.apps.gsa.search.core.i.r.run(PG:5)
+11-04 15:51:08.237 W/CorpusConfigHelper( 1785): 	at com.google.android.libraries.gsa.k.a.h.run(PG:2)
+11-04 15:51:08.237 W/CorpusConfigHelper( 1785): 	at com.google.android.apps.gsa.shared.util.c.a.cf.b(PG:1)
+11-04 15:51:08.237 W/CorpusConfigHelper( 1785): 	at com.google.android.apps.gsa.shared.util.c.a.ci.run(PG:1)
+11-04 15:51:08.237 W/CorpusConfigHelper( 1785): 	at com.google.android.libraries.i.ae.run(PG:1)
+11-04 15:51:08.237 W/CorpusConfigHelper( 1785): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+11-04 15:51:08.237 W/CorpusConfigHelper( 1785): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+11-04 15:51:08.237 W/CorpusConfigHelper( 1785): 	at com.google.android.libraries.i.k.run(PG:2)
+11-04 15:51:08.237 W/CorpusConfigHelper( 1785): 	at com.google.android.libraries.i.p.run(PG:4)
+11-04 15:51:08.237 W/CorpusConfigHelper( 1785): 	at java.lang.Thread.run(Thread.java:1012)
