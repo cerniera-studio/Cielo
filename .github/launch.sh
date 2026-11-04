@@ -5,6 +5,10 @@
 set +e
 PKG=com.fergusonconsultancy.cielo
 APK=$(ls app/build/outputs/apk/debug/*.apk | head -1)
+# Let a freshly booted emulator finish its first-boot work before loading it further
+for i in $(seq 1 30); do [ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" = "1" ] && break; sleep 2; done
+sleep 40
+echo "settled: $(adb get-state 2>&1)"
 adb install -r "$APK"
 adb logcat -c
 mkdir -p shots
