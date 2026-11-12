@@ -51,6 +51,8 @@ class SkyView(context: Context) : View(context) {
 
     var topInset = 0f
     var bottomInset = 0f
+    var leftInset = 0f
+    var rightInset = 0f
 
     private val dp = resources.displayMetrics.density
     private val ink = Ink(context, dp)
@@ -66,12 +68,12 @@ class SkyView(context: Context) : View(context) {
         val header: RectF, val hero: RectF, val verdict: RectF, val verdictLines: List<String>,
         val curve: RectF, val plot: RectF, val week: RectF, val weekLines: List<String>, val rows: List<RectF>,
         val tiles: List<Pair<Tile, RectF>>, val foot: RectF, val placesBtn: RectF, val settingsBtn: RectF,
-        val height: Float,
+        val height: Float, val fig: Float,
     )
 
     private val lays = HashMap<String, Lay>()
 
-    private fun key(p: Place, f: Forecast?) = "${p.id}|${f?.fetched}|$width|$height|${units.fahrenheit}|$topInset|$bottomInset|${p.id in failed}"
+    private fun key(p: Place, f: Forecast?) = "${p.id}|${f?.fetched}|$width|$height|${units.fahrenheit}|$topInset|$bottomInset|$leftInset|$rightInset|${p.id in failed}"
 
     private fun layFor(i: Int): Lay {
         val p = places[i]; val f = forecastOf(p)
@@ -85,7 +87,8 @@ class SkyView(context: Context) : View(context) {
         if (!debuggable) return
         fun r(x: RectF) = "[${x.left.toInt()},${x.top.toInt()},${x.right.toInt()},${x.bottom.toInt()}]"
         val json = "{\"plot\":${r(L.plot)},\"header\":${r(L.header)},\"rows\":[${L.rows.joinToString(",") { r(it) }}]," +
-            "\"settings\":${r(L.settingsBtn)},\"places\":${r(L.placesBtn)},\"height\":${L.height.toInt()},\"wide\":${L.wide}}"
+            "\"settings\":${r(L.settingsBtn)},\"places\":${r(L.placesBtn)},\"curve\":${r(L.curve)},\"hero\":${r(L.hero)},\"verdict\":${r(L.verdict)}," +
+            "\"view\":${height},\"bottomInset\":${bottomInset.toInt()},\"height\":${L.height.toInt()},\"wide\":${L.wide}}"
         runCatching { java.io.File(context.filesDir, "layout.json").writeText(json) }
     }
 
@@ -101,59 +104,151 @@ class SkyView(context: Context) : View(context) {
         return t
     }
 
+    /**
+     * Four shapes, each filling its own glass with nothing cut off at rest:
+     *  - cover, portrait: one column; the whole week always sits above the fold (the curve and the
+     *    gaps give way first, then the rows tighten a little);
+     *  - cover, landscape (short and wide): three columns, the glance, the day and the week, side by
+     *    side and each fitted to the height, so nothing hides below the fold;
+     *  - main screen, either way round: two columns at the crease, each stretched to the foot of the
+     *    glass, so no dead band is left under them.
+     * Below the fold only the extras (the Now tiles, Places, Settings), reached by a scroll.
+     */
     private fun layout(f: Forecast?, failedNow: Boolean): Lay {
-        val w = width.toFloat()
+        val w = width.toFloat(); val hh = height.toFloat()
+        val avail = hh - topInset - bottomInset
         val wide = w >= 600 * dp
+        val band = wide && avail < 560 * dp && w - leftInset - rightInset >= 700 * dp
         val pad = if (wide) 28 * dp else 22 * dp
+        val left = leftInset + pad; val right = w - rightInset - pad
         val crease = w / 2
-        val aL = pad; val aR = if (wide) crease - pad * 0.8f else w - pad
-        val bL = if (wide) crease + pad * 0.8f else aL; val bR = w - pad
+        val n = if (f == null) 0 else min(7, f.days)
+        val kinds = tilesFor(f)
+        val tileGap = 10 * dp
+
+        if (band) return bandLayout(f, failedNow, left, right, crease, n, kinds)
+
+        val aL = left; val aR = if (wide) crease - pad * 0.8f else right
+        val bL = if (wide) crease + pad * 0.8f else aL; val bR = right
         val aW = aR - aL; val bW = bR - bL
+        val fig = 150 * dp
+        val heroH = capHeight(ink.figure) + 26 * dp
+        val vLines = if (f == null) wrap(statusLine(null, failedNow), ink.statement, aW, 3) else wrap(Weather.verdict(f), ink.statement, aW, 2)
+        val vH = vLines.size * ink.statement.textSize * 1.22f + 10 * dp + ink.meta.textSize * 1.3f
+        val weekLines = if (f == null) emptyList() else wrap(Weather.weekLine(f), ink.body, bW, 2)
+        val weekH = 22 * dp + weekLines.size * ink.body.textSize * 1.3f + 8 * dp
+        val topA = topInset + 10 * dp + 44 * dp + 6 * dp + heroH + 4 * dp + vH  // header, hero, verdict
+
+        var gapVC = 26 * dp; var plotH: Float; var gapCW = 30 * dp; var rowH = 52 * dp
+        var tileH = 118 * dp; var gapNow = 26 * dp; var gapFoot = 30 * dp
+        if (wide) {
+            // The day fills its column to the foot of the glass
+            plotH = (hh - bottomInset - 24 * dp - (topA + gapVC) - 30 * dp - 48 * dp).coerceAtLeast(190 * dp)
+            // The week and its tiles likewise: rows breathe first, then the tiles, then the gaps
+            val across = 3
+            val tileRows = (kinds.size + across - 1) / across
+            fun colB() = topInset + 18 * dp + weekH + n * rowH + (if (n > 0) gapNow else 0f) +
+                (if (kinds.isNotEmpty()) 22 * dp + tileRows * tileH + (tileRows - 1) * tileGap + gapFoot else 0f) + 96 * dp
+            var spare = hh - bottomInset - colB()
+            if (spare > 0 && n > 0) { val d = min(spare / n, 16 * dp); rowH += d; spare -= d * n }
+            if (spare > 0 && tileRows > 0) { val d = min(spare / tileRows, 22 * dp); tileH += d; spare -= d * tileRows }
+            if (spare > 0) { gapNow += spare / 2; gapFoot += spare / 2 }
+        } else {
+            plotH = 140 * dp
+            // Every day of the week above the fold: the curve and gaps give way, then the rows tighten
+            val limit = hh - bottomInset - 12 * dp
+            var over = topA + gapVC + 30 * dp + plotH + 48 * dp + gapCW + weekH + n * rowH - limit
+            if (over > 0) { val d = min(over, 44 * dp); plotH -= d; over -= d }
+            if (over > 0) { val d = min(over, 22 * dp); gapVC -= d * 10 / 22; gapCW -= d * 12 / 22; over -= d }
+            if (over > 0 && n > 0) { val d = min(over, n * 8 * dp); rowH -= d / n; over -= d }
+        }
 
         var y = topInset + 10 * dp
         val header = RectF(aL, y, aR, y + 44 * dp); y = header.bottom + 6 * dp
-        val heroH = capHeight(ink.figure) + 26 * dp
         val hero = RectF(aL, y, aR, y + heroH); y = hero.bottom + 4 * dp
-        val vLines = if (f == null) wrap(statusLine(null, failedNow), ink.statement, aW, 3) else wrap(Weather.verdict(f), ink.statement, aW, 2)
-        val vH = vLines.size * ink.statement.textSize * 1.22f + 10 * dp + ink.meta.textSize * 1.3f
-        val verdict = RectF(aL, y, aR, y + vH); y = verdict.bottom + 26 * dp
-
-        val plotH = if (wide) (height - bottomInset - y - 30 * dp - 48 * dp - 24 * dp).coerceIn(190 * dp, 300 * dp) else 140 * dp
+        val verdict = RectF(aL, y, aR, y + vH); y = verdict.bottom + gapVC
         val curveTop = y
         val plot = RectF(aL, curveTop + 30 * dp, aR, curveTop + 30 * dp + plotH)
         val curve = RectF(aL, curveTop, aR, plot.bottom + 48 * dp)
         val aBottom = curve.bottom
 
-        var yb = if (wide) topInset + 18 * dp else curve.bottom + 30 * dp
-        val weekLines = if (f == null) emptyList() else wrap(Weather.weekLine(f), ink.body, bW, 2)
-        val week = RectF(bL, yb, bR, yb + 22 * dp + weekLines.size * ink.body.textSize * 1.3f + 8 * dp)
+        var yb = if (wide) topInset + 18 * dp else curve.bottom + gapCW
+        val week = RectF(bL, yb, bR, yb + weekH)
         yb = week.bottom
-        val n = if (f == null) 0 else min(7, f.days)
-        val rowH = 52 * dp
         val rows = (0 until n).map { RectF(bL, yb + it * rowH, bR, yb + (it + 1) * rowH) }
-        yb += n * rowH + if (n > 0) 26 * dp else 0f
+        yb += n * rowH + if (n > 0) gapNow else 0f
 
-        val kinds = tilesFor(f)
-        val gap = 10 * dp
         val across = if (wide) 3 else 2
-        val tileW = (bW - gap * (across - 1)) / across
-        val tileH = 118 * dp
-        val tiles = ArrayList<Pair<Tile, RectF>>()
-        if (kinds.isNotEmpty()) yb += 22 * dp  // the "Now" label
-        kinds.forEachIndexed { i, k ->
-            val row = i / across; val colI = i % across
-            val last = !wide && i == kinds.size - 1 && kinds.size % 2 == 1
-            val l = if (last) bL else bL + colI * (tileW + gap)
-            val r = if (last) bR else l + tileW
-            tiles += k to RectF(l, yb + row * (tileH + gap), r, yb + row * (tileH + gap) + tileH)
-        }
-        if (kinds.isNotEmpty()) yb = tiles.last().second.bottom + 30 * dp
+        val tiles = placeTiles(kinds, bL, bR, across, tileH, yb)
+        if (tiles.isNotEmpty()) yb = tiles.last().second.bottom + gapFoot
 
         val foot = RectF(bL, yb, bR, yb + 96 * dp)
         val placesBtn = RectF(bL - 8 * dp, foot.top, bL + 90 * dp, foot.top + 44 * dp)
         val settingsBtn = RectF(placesBtn.right, foot.top, placesBtn.right + 110 * dp, foot.top + 44 * dp)
         val h = max(aBottom + 24 * dp, foot.bottom) + bottomInset
-        return Lay(wide, crease, aL, aR, bL, bR, header, hero, verdict, vLines, curve, plot, week, weekLines, rows, tiles, foot, placesBtn, settingsBtn, h)
+        return Lay(wide, crease, aL, aR, bL, bR, header, hero, verdict, vLines, curve, plot, week, weekLines, rows, tiles, foot, placesBtn, settingsBtn, h, fig)
+    }
+
+    /** Tiles under [top] (which leaves room for the "Now" label), [across] to a row; an odd last tile in pairs spans. */
+    private fun placeTiles(kinds: List<Tile>, l0: Float, r0: Float, across: Int, tileH: Float, top: Float): List<Pair<Tile, RectF>> {
+        if (kinds.isEmpty()) return emptyList()
+        val gap = 10 * dp
+        val y0 = top + 22 * dp
+        val tileW = (r0 - l0 - gap * (across - 1)) / across
+        return kinds.mapIndexed { i, k ->
+            val row = i / across; val colI = i % across
+            val last = across == 2 && i == kinds.size - 1 && kinds.size % 2 == 1
+            val l = if (last) l0 else l0 + colI * (tileW + gap)
+            val r = if (last) r0 else l + tileW
+            k to RectF(l, y0 + row * (tileH + gap), r, y0 + row * (tileH + gap) + tileH)
+        }
+    }
+
+    /** The cover held sideways: the glance, the day and the week side by side, each fitted to the height. */
+    private fun bandLayout(f: Forecast?, failedNow: Boolean, left: Float, right: Float, crease: Float, n: Int, kinds: List<Tile>): Lay {
+        val hh = height.toFloat()
+        val gutter = 30 * dp
+        val total = right - left - 2 * gutter
+        val cW = max(330 * dp, total * 0.37f)        // the week needs its width for the range bars
+        val aW = (total - cW) * 0.48f
+        val aL = left; val aR = aL + aW
+        val mL = aR + gutter; val mR = right - cW - gutter
+        val bL = right - cW; val bR = right
+        val top = topInset + 8 * dp
+        val bottom = hh - bottomInset - 10 * dp
+
+        // The glance: name, figure, verdict; the figure gives way if the glass is very short
+        val vLines = if (f == null) wrap(statusLine(null, failedNow), ink.statement, aW, 3) else wrap(Weather.verdict(f), ink.statement, aW, 2)
+        val vH = vLines.size * ink.statement.textSize * 1.22f + 10 * dp + ink.meta.textSize * 1.3f
+        val header = RectF(aL, top, aR, top + 40 * dp)
+        val capFull = capHeight(ink.figure)
+        val roomHero = bottom - header.bottom - 6 * dp - vH - 10 * dp
+        val fig = (150 * dp * ((roomHero - 22 * dp) / capFull)).coerceIn(80 * dp, 150 * dp)
+        val heroH = max(capFull * fig / (150 * dp) + 22 * dp, 96 * dp)
+        val hero = RectF(aL, header.bottom + 6 * dp, aR, header.bottom + 6 * dp + heroH)
+        val verdict = RectF(aL, hero.bottom + 4 * dp, aR, hero.bottom + 4 * dp + vH)
+
+        // The day, the full height of the middle column
+        val curveTop = top + 10 * dp
+        val plotH = (bottom - curveTop - 30 * dp - 48 * dp).coerceAtLeast(110 * dp)
+        val plot = RectF(mL, curveTop + 30 * dp, mR, curveTop + 30 * dp + plotH)
+        val curve = RectF(mL, curveTop, mR, plot.bottom + 48 * dp)
+
+        // The week, every day in view: the summary keeps to one line and the rows share what is left
+        val weekLines = if (f == null) emptyList() else wrap(Weather.weekLine(f), ink.body, cW, 1)
+        val week = RectF(bL, top + 10 * dp, bR, top + 10 * dp + 20 * dp + weekLines.size * ink.body.textSize * 1.3f + 4 * dp)
+        val rowH = if (n == 0) 52 * dp else ((bottom - week.bottom) / n).coerceIn(34 * dp, 52 * dp)
+        val rows = (0 until n).map { RectF(bL, week.bottom + it * rowH, bR, week.bottom + (it + 1) * rowH) }
+        var yb = week.bottom + n * rowH + if (n > 0) 26 * dp else 0f
+
+        // Below the fold, under the week: the tiles and the way to Places and Settings
+        val tiles = placeTiles(kinds, bL, bR, 2, 112 * dp, yb)
+        if (tiles.isNotEmpty()) yb = tiles.last().second.bottom + 30 * dp
+        val foot = RectF(bL, yb, bR, yb + 96 * dp)
+        val placesBtn = RectF(bL - 8 * dp, foot.top, bL + 90 * dp, foot.top + 44 * dp)
+        val settingsBtn = RectF(placesBtn.right, foot.top, placesBtn.right + 110 * dp, foot.top + 44 * dp)
+        val h = max(max(curve.bottom, verdict.bottom) + 10 * dp, foot.bottom) + bottomInset
+        return Lay(true, crease, aL, aR, bL, bR, header, hero, verdict, vLines, curve, plot, week, weekLines, rows, tiles, foot, placesBtn, settingsBtn, h, fig)
     }
 
     // ---- motion state ----
@@ -366,10 +461,10 @@ class SkyView(context: Context) : View(context) {
             val s = units.t(tempC).removeSuffix("°")
             val fig = ink.figure
             fig.color = alpha(Palette.IVORY, ea)
-            var size = 150 * dp
+            var size = L.fig
             fig.textSize = size
             val room = r.width() - 110 * dp
-            while (fig.measureText(s) > room && size > 70 * dp) { size -= 6 * dp; fig.textSize = size }
+            while (fig.measureText(s) > room && size > 56 * dp) { size -= 6 * dp; fig.textSize = size }
             val ch = capHeight(fig)
             c.drawText(s, r.left - 4 * dp, r.top + ch, fig)
             // The degree: a fine ring at cap height, in the figure's own stroke weight. Italiana's
