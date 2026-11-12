@@ -61,8 +61,8 @@ echo "::notice::summary: $(desc)"
 if desc | grep -q "Fetching\|No forecast"; then echo "::warning::no forecast arrived on the emulator (network?)"; fi
 
 # The four shapes of the phone, each held still: nothing that matters may sit below the fold.
-# Sizes and densities from the Fold's own screenshots: cover 1080 x 2520 at 420 dpi, main 1880 x 1960
-# at 350 dpi; landscape is the same glass turned (width and height swapped).
+# The Fold's glass in dp, from its own screenshots: cover 411 x 960, main 859 x 896; landscape is the
+# same glass turned. The emulator can't go past 1920 px, so densities are lowered to keep the dp.
 check() {  # name: every week row and the day curve end inside the view
   python3 - "$1" "$(lay)" <<'PY'
 import sys,json
@@ -82,10 +82,11 @@ shape() {  # name WxH dpi
   adb shell am force-stop $PKG; adb shell am start -W -n $PKG/.MainActivity >/dev/null; sleep 7
   shot "$1"; check "$1"
 }
-shape 19-cover-portrait 1080x2520 420
-shape 20-cover-landscape 2520x1080 420
-shape 21-main-portrait 1880x1960 350
-shape 22-main-landscape 1960x1880 350
+shape 19-cover-portrait 823x1920 320
+shape 20-cover-landscape 1920x823 320
+shape 21-main-portrait 1503x1568 280
+shape 22-main-landscape 1568x1503 280
+shape 23-short-portrait 1080x1920 420
 adb shell wm size reset; adb shell wm density reset; sleep 2
 adb shell am force-stop $PKG; adb shell am start -W -n $PKG/.MainActivity >/dev/null; sleep 6
 

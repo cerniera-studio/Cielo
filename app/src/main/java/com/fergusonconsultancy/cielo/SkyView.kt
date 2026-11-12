@@ -131,8 +131,8 @@ class SkyView(context: Context) : View(context) {
         val aL = left; val aR = if (wide) crease - pad * 0.8f else right
         val bL = if (wide) crease + pad * 0.8f else aL; val bR = right
         val aW = aR - aL; val bW = bR - bL
-        val fig = 150 * dp
-        val heroH = capHeight(ink.figure) + 26 * dp
+        var fig = 150 * dp
+        var heroH = capHeight(ink.figure) + 26 * dp
         val vLines = if (f == null) wrap(statusLine(null, failedNow), ink.statement, aW, 3) else wrap(Weather.verdict(f), ink.statement, aW, 2)
         val vH = vLines.size * ink.statement.textSize * 1.22f + 10 * dp + ink.meta.textSize * 1.3f
         val weekLines = if (f == null) emptyList() else wrap(Weather.weekLine(f), ink.body, bW, 2)
@@ -161,6 +161,12 @@ class SkyView(context: Context) : View(context) {
             if (over > 0) { val d = min(over, 44 * dp); plotH -= d; over -= d }
             if (over > 0) { val d = min(over, 22 * dp); gapVC -= d * 10 / 22; gapCW -= d * 12 / 22; over -= d }
             if (over > 0 && n > 0) { val d = min(over, n * 8 * dp); rowH -= d / n; over -= d }
+            // A very short glass: the figure steps down, then the rows tighten to their floor
+            if (over > 0) {
+                val per = capHeight(ink.figure) / (150 * dp)
+                val d = min(over, 40 * dp * per); fig -= d / per; heroH -= d; over -= d
+            }
+            if (over > 0 && n > 0) { val d = min(over, n * 4 * dp); rowH -= d / n; over -= d }
         }
 
         var y = topInset + 10 * dp
@@ -210,7 +216,7 @@ class SkyView(context: Context) : View(context) {
         val gutter = 30 * dp
         val total = right - left - 2 * gutter
         val cW = max(330 * dp, total * 0.37f)        // the week needs its width for the range bars
-        val aW = (total - cW) * 0.48f
+        val aW = (total - cW) * 0.44f
         val aL = left; val aR = aL + aW
         val mL = aR + gutter; val mR = right - cW - gutter
         val bL = right - cW; val bR = right
