@@ -1,12 +1,7 @@
 package com.fergusonconsultancy.cielo
 
 import android.content.Context
-import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
-import android.hardware.SensorManager
 import android.os.SystemClock
-import android.view.animation.PathInterpolator
 import kotlin.math.abs
 
 /**
@@ -47,44 +42,18 @@ class Tween(private val ms: Float, private val delayMs: Float = 0f) {
 
     fun over(totalMs: Float) = SystemClock.uptimeMillis() - start >= delayMs + totalMs
 
-    companion object { val EASE = PathInterpolator(0.2f, 0f, 0f, 1f) }
+    companion object { val EASE get() = com.cerniera.kit.Kit.ease }
 }
 
 /**
- * Reads the hinge so the app knows how fast the phone was folded (Concentrato). Opening speed is
- * the time from the hinge passing 90° to the screen switching: 140 ms or less is fast, 520 ms or
- * more is slow (the same thresholds as Fold Motion). Closing reads the same crossing downwards.
+ * The hinge, from the Kit: how fast the phone was folded (Concentrato), by the family's
+ * definition (the 90° crossing to the screen switching: 140 ms fast, 520 ms slow).
  */
-class Hinge(c: Context) : SensorEventListener {
-    private val sm = c.getSystemService(SensorManager::class.java)
-    private val sensor: Sensor? = sm?.getDefaultSensor(Sensor.TYPE_HINGE_ANGLE)
-    private val times = LongArray(64)
-    private val angles = FloatArray(64)
-    private var n = 0
-    val present get() = sensor != null
-
-    fun start() { sensor?.let { sm.registerListener(this, it, SensorManager.SENSOR_DELAY_GAME) } }
-    fun stop() { sm?.unregisterListener(this) }
-
-    override fun onSensorChanged(e: SensorEvent) {
-        val i = n % times.size
-        times[i] = SystemClock.uptimeMillis(); angles[i] = e.values[0]; n++
-    }
-    override fun onAccuracyChanged(s: Sensor?, a: Int) {}
-
+class Hinge(c: Context) {
+    private val k = com.cerniera.kit.Hinge(c, object : com.cerniera.kit.Hinge.Listener {})
+    val present get() = k.present
+    fun start() = k.start()
+    fun stop() = k.stop()
     /** 0 for a slow fold, 1 for a fast one; 0 when the hinge told us nothing. */
-    fun speed(opening: Boolean): Float {
-        val now = SystemClock.uptimeMillis()
-        val count = minOf(n, times.size)
-        for (k in 1 until count) {
-            val a = (n - k) % times.size; val b = (n - k - 1 + times.size) % times.size
-            if (now - times[a] > 1500) break
-            val crossed = if (opening) angles[b] < 90f && angles[a] >= 90f else angles[b] > 90f && angles[a] <= 90f
-            if (crossed) {
-                val ms = (now - times[a]).toFloat()
-                return (1f - (ms - 140f) / (520f - 140f)).coerceIn(0f, 1f)
-            }
-        }
-        return 0f
-    }
+    fun speed(opening: Boolean): Float = k.foldSpeed(opening)
 }
