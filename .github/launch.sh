@@ -60,6 +60,36 @@ shot 01-cover
 echo "::notice::summary: $(desc)"
 if desc | grep -q "Fetching\|No forecast"; then echo "::warning::no forecast arrived on the emulator (network?)"; fi
 
+# The four shapes of the phone, each held still: nothing that matters may sit below the fold.
+# The Fold's glass in dp, from its own screenshots: cover 411 x 960, main 859 x 896; landscape is the
+# same glass turned. The emulator can't go past 1920 px, so densities are lowered to keep the dp.
+check() {  # name: every week row and the day curve end inside the view
+  python3 - "$1" "$(lay)" <<'PY'
+import sys,json
+name=sys.argv[1]; d=json.loads(sys.argv[2])
+v=d["view"]; lim=v-d["bottomInset"]
+last=d["rows"][-1][3] if d["rows"] else 0
+curve=d["curve"][3]
+bad=[]
+if len(d["rows"])<7: bad.append(f"only {len(d['rows'])} days")
+if last>lim: bad.append(f"last day ends at {last}, view ends at {lim}")
+if curve>lim: bad.append(f"the day curve ends at {curve}, view ends at {lim}")
+print(("::error::" if bad else "::notice::")+f"{name}: "+("; ".join(bad) if bad else f"all 7 days and the curve in view (last row {last}, curve {curve}, view {lim}, page {d['height']})"))
+PY
+}
+shape() {  # name WxH dpi
+  adb shell wm density $3; adb shell wm size $2
+  adb shell am force-stop $PKG; adb shell am start -W -n $PKG/.MainActivity >/dev/null; sleep 7
+  shot "$1"; check "$1"
+}
+shape 19-cover-portrait 823x1920 320
+shape 20-cover-landscape 1920x823 320
+shape 21-main-portrait 1503x1568 280
+shape 22-main-landscape 1568x1503 280
+shape 23-short-portrait 1080x1920 420
+adb shell wm size reset; adb shell wm density reset; sleep 2
+adb shell am force-stop $PKG; adb shell am start -W -n $PKG/.MainActivity >/dev/null; sleep 6
+
 # Scrub the day: hold and slide along the curve
 read L T R B <<< "$(lay_get "['plot']")"
 Y=$(( (T + B) / 2 ))

@@ -49,6 +49,7 @@ class MainActivity : Activity() {
         root.setOnApplyWindowInsetsListener { _, insets ->
             val bars = insets.getInsets(WindowInsets.Type.systemBars() or WindowInsets.Type.displayCutout())
             sky.topInset = bars.top.toFloat(); sky.bottomInset = bars.bottom.toFloat()
+            sky.leftInset = bars.left.toFloat(); sky.rightInset = bars.right.toFloat()
             bottomInset = maxOf(bars.bottom, insets.getInsets(WindowInsets.Type.ime()).bottom)
             sheet?.place(wide, bottomInset)
             sky.refreshData()
