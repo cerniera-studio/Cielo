@@ -136,7 +136,7 @@ class PlacesSheet(
                 hint = "Add a town or city"
                 setHintTextColor(Palette.FAINT); setTextColor(Palette.IVORY)
                 typeface = Type.sans(c, 450); setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16f)
-                background = Kit.round(Palette.RAISED, c.dp(16f))
+                background = Bits.round(Palette.RAISED, c.dp(16f))
                 setPadding(c.dp(18f).toInt(), 0, c.dp(18f).toInt(), 0)
                 isSingleLine = true
                 imeOptions = EditorInfo.IME_ACTION_SEARCH
