@@ -2,7 +2,6 @@ package com.fergusonconsultancy.cielo
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.drawable.GradientDrawable
 import android.os.Handler
 import android.os.Looper
@@ -19,11 +18,10 @@ import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.ScrollView
-import android.widget.Switch
 import android.widget.TextView
 
-/** The family's small kit for real views: Jost words, one main action, champagne for what is chosen. */
-object Kit {
+/** Cielo's small helpers for real views: Jost words and labels. Controls come from the Kit. */
+object Bits {
     fun Context.dp(v: Float) = v * resources.displayMetrics.density
 
     fun Context.words(s: String, size: Float, colour: Int, weight: Int = 450, tracking: Float = 0f) = TextView(this).apply {
@@ -38,29 +36,9 @@ object Kit {
 
     fun round(colour: Int, r: Float) = GradientDrawable().apply { setColor(colour); cornerRadius = r }
 
-    fun Context.segments(options: List<String>, chosen: Int, pick: (Int) -> Unit): LinearLayout {
-        val row = LinearLayout(this).apply {
-            orientation = LinearLayout.HORIZONTAL
-            background = round(Palette.RAISED, dp(24f))
-            setPadding(dp(3f).toInt(), dp(3f).toInt(), dp(3f).toInt(), dp(3f).toInt())
-        }
-        val cells = ArrayList<TextView>()
-        fun paint(sel: Int) = cells.forEachIndexed { i, t ->
-            t.background = if (i == sel) round(Palette.CHAMPAGNE, dp(21f)) else null
-            t.setTextColor(if (i == sel) Palette.GROUND else Palette.IVORY)
-        }
-        options.forEachIndexed { i, s ->
-            val t = words(s, 14.5f, Palette.IVORY, 600).apply {
-                gravity = Gravity.CENTER
-                minHeight = dp(42f).toInt()
-                setOnClickListener { paint(i); pick(i) }
-            }
-            cells += t
-            row.addView(t, LinearLayout.LayoutParams(0, dp(42f).toInt(), 1f))
-        }
-        paint(chosen)
-        return row
-    }
+    /** The Kit's segmented control: the champagne thumb stretches as it travels (the Membrane). */
+    fun Context.segments(options: List<String>, chosen: Int, pick: (Int) -> Unit): View =
+        com.cerniera.kit.Segmented(this, options, chosen, pick)
 }
 
 /**
@@ -77,7 +55,7 @@ open class Sheet(context: Context, title: String) : FrameLayout(context) {
         private set
 
     init {
-        with(Kit) {
+        with(Bits) {
             addView(scrim, LayoutParams(-1, -1))
             scrim.setOnClickListener { close() }
             panel.background = GradientDrawable().apply {
@@ -105,7 +83,7 @@ open class Sheet(context: Context, title: String) : FrameLayout(context) {
         lp.width = if (wide) width / 2 else -1
         lp.gravity = Gravity.BOTTOM or Gravity.END
         panel.layoutParams = lp
-        body.setPadding(body.paddingLeft, body.paddingTop, body.paddingRight, Kit.run { context.dp(24f).toInt() } + bottomInset)
+        body.setPadding(body.paddingLeft, body.paddingTop, body.paddingRight, Bits.run { context.dp(24f).toInt() } + bottomInset)
     }
 
     fun open() {
@@ -144,7 +122,7 @@ class PlacesSheet(
 ) : Sheet(context, "Places") {
 
     private val field = EditText(context)
-    private val note: TextView = Kit.run { context.words("", 13.5f, Palette.MUTED, 450).apply { setPadding(0, context.dp(12f).toInt(), 0, 0); visibility = GONE } }
+    private val note: TextView = Bits.run { context.words("", 13.5f, Palette.MUTED, 450).apply { setPadding(0, context.dp(12f).toInt(), 0, 0); visibility = GONE } }
     private val results = LinearLayout(context).apply { orientation = LinearLayout.VERTICAL }
     private val saved = LinearLayout(context).apply { orientation = LinearLayout.VERTICAL }
     private val handler = Handler(Looper.getMainLooper())
@@ -152,7 +130,7 @@ class PlacesSheet(
     private var asked = ""
 
     init {
-        with(Kit) {
+        with(Bits) {
             val c = context
             field.apply {
                 hint = "Add a town or city"
@@ -211,7 +189,7 @@ class PlacesSheet(
         }
     }
 
-    private fun row(title: String, detail: String, action: String?, chosen: Boolean = false, onAction: (() -> Unit)? = null, onTap: (() -> Unit)? = null): View = with(Kit) {
+    private fun row(title: String, detail: String, action: String?, chosen: Boolean = false, onAction: (() -> Unit)? = null, onTap: (() -> Unit)? = null): View = with(Bits) {
         val c = context
         val r = LinearLayout(c).apply {
             orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL
@@ -246,7 +224,7 @@ class PlacesSheet(
 
 class SettingsSheet(context: Context, version: String, changed: () -> Unit) : Sheet(context, "Settings") {
     init {
-        with(Kit) {
+        with(Bits) {
             with(Store) {
                 val c = context
                 body.addView(c.label("Temperature"))
@@ -260,29 +238,22 @@ class SettingsSheet(context: Context, version: String, changed: () -> Unit) : Sh
                 body.addView(c.words("Weather data by Open-Meteo.com, licensed CC BY 4.0. Places are kept on this phone and nothing else is sent anywhere.", 12.5f, Palette.FAINT, 450).apply {
                     setPadding(0, c.dp(30f).toInt(), 0, 0); setLineSpacing(0f, 1.25f)
                 })
-                body.addView(c.words("Cielo $version · Ferguson Consultancy Designs", 12.5f, Palette.FAINT, 450).apply { setPadding(0, c.dp(8f).toInt(), 0, 0) })
+                body.addView(c.words("Cielo $version · Cerniera", 12.5f, Palette.FAINT, 450).apply { setPadding(0, c.dp(8f).toInt(), 0, 0) })
             }
         }
     }
 
-    @Suppress("UseSwitchCompatOrMaterialCode")
-    private fun toggle(title: String, detail: String, on: Boolean, set: (Boolean) -> Unit): View = with(Kit) {
+    private fun toggle(title: String, detail: String, on: Boolean, set: (Boolean) -> Unit): View = with(Bits) {
         val c = context
         val r = LinearLayout(c).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL; setPadding(0, c.dp(8f).toInt(), 0, c.dp(8f).toInt()) }
         val t = LinearLayout(c).apply { orientation = LinearLayout.VERTICAL }
         t.addView(c.words(title, 15.5f, Palette.IVORY, 600))
         t.addView(c.words(detail, 12.5f, Palette.MUTED, 500).apply { setPadding(0, c.dp(4f).toInt(), c.dp(12f).toInt(), 0); setLineSpacing(0f, 1.2f) })
         r.addView(t, LinearLayout.LayoutParams(0, -2, 1f))
-        val s = Switch(c).apply {
-            isChecked = on
-            val states = arrayOf(intArrayOf(android.R.attr.state_checked), intArrayOf())
-            thumbTintList = ColorStateList(states, intArrayOf(Palette.CHAMPAGNE, Palette.MUTED))
-            trackTintList = ColorStateList(states, intArrayOf(alpha(Palette.CHAMPAGNE, 0.4f), Palette.RAISED))
-            setOnCheckedChangeListener { _, v -> set(v) }
-            contentDescription = title
-        }
+        // The Kit's drawn switch, the same in every app (was the stock switch, tinted)
+        val s = com.cerniera.kit.Toggle(c, on) { v -> set(v) }.apply { contentDescription = title }
         r.addView(s)
-        r.setOnClickListener { s.toggle() }
+        r.setOnClickListener { s.performClick() }
         r
     }
 }

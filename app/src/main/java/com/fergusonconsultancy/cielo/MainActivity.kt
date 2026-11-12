@@ -35,7 +35,8 @@ class MainActivity : Activity() {
 
     override fun onCreate(saved: Bundle?) {
         super.onCreate(saved)
-        keepCrashes()
+        com.cerniera.kit.Crash.install(this, "Cielo")
+        if (com.cerniera.kit.Crash.show(this, "Cielo")) return
         window.setDecorFitsSystemWindows(false)
         hinge = Hinge(this)
         places = Store.places(this)
@@ -237,12 +238,4 @@ class MainActivity : Activity() {
         main.postDelayed({ if (!done) use(runCatching { lm.getLastKnownLocation(provider) }.getOrNull()) }, 12_000)
     }
 
-    // ---- crashes are kept and shown in the launch test ----
-    private fun keepCrashes() {
-        val prior = Thread.getDefaultUncaughtExceptionHandler()
-        Thread.setDefaultUncaughtExceptionHandler { t, e ->
-            runCatching { File(filesDir, "crash.txt").writeText(e.stackTraceToString()) }
-            prior?.uncaughtException(t, e)
-        }
-    }
 }
