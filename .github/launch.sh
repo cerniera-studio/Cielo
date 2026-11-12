@@ -60,6 +60,35 @@ shot 01-cover
 echo "::notice::summary: $(desc)"
 if desc | grep -q "Fetching\|No forecast"; then echo "::warning::no forecast arrived on the emulator (network?)"; fi
 
+# The four shapes of the phone, each held still: nothing that matters may sit below the fold.
+# Sizes and densities from the Fold's own screenshots: cover 1080 x 2520 at 420 dpi, main 1880 x 1960
+# at 350 dpi; landscape is the same glass turned (width and height swapped).
+check() {  # name: every week row and the day curve end inside the view
+  python3 - "$1" "$(lay)" <<'PY'
+import sys,json
+name=sys.argv[1]; d=json.loads(sys.argv[2])
+v=d["view"]; lim=v-d["bottomInset"]
+last=d["rows"][-1][3] if d["rows"] else 0
+curve=d["curve"][3]
+bad=[]
+if len(d["rows"])<7: bad.append(f"only {len(d['rows'])} days")
+if last>lim: bad.append(f"last day ends at {last}, view ends at {lim}")
+if curve>lim: bad.append(f"the day curve ends at {curve}, view ends at {lim}")
+print(("::error::" if bad else "::notice::")+f"{name}: "+("; ".join(bad) if bad else f"all 7 days and the curve in view (last row {last}, curve {curve}, view {lim}, page {d['height']})"))
+PY
+}
+shape() {  # name WxH dpi
+  adb shell wm density $3; adb shell wm size $2
+  adb shell am force-stop $PKG; adb shell am start -W -n $PKG/.MainActivity >/dev/null; sleep 7
+  shot "$1"; check "$1"
+}
+shape 19-cover-portrait 1080x2520 420
+shape 20-cover-landscape 2520x1080 420
+shape 21-main-portrait 1880x1960 350
+shape 22-main-landscape 1960x1880 350
+adb shell wm size reset; adb shell wm density reset; sleep 2
+adb shell am force-stop $PKG; adb shell am start -W -n $PKG/.MainActivity >/dev/null; sleep 6
+
 # Scrub the day: hold and slide along the curve
 read L T R B <<< "$(lay_get "['plot']")"
 Y=$(( (T + B) / 2 ))
@@ -168,34 +197,6 @@ sleep 0.35
 shot 17-folding
 sleep 3
 shot 18-cover-again
-
-# The four shapes of the phone, each held still: nothing that matters may sit below the fold.
-# Sizes and densities from the Fold's own screenshots: cover 1080 x 2520 at 420 dpi, main 1880 x 1960
-# at 350 dpi; landscape is the same glass turned (width and height swapped).
-check() {  # name: every week row and the day curve end inside the view
-  python3 - "$1" "$(lay)" <<'PY'
-import sys,json
-name=sys.argv[1]; d=json.loads(sys.argv[2])
-v=d["view"]; lim=v-d["bottomInset"]
-last=d["rows"][-1][3] if d["rows"] else 0
-curve=d["curve"][3]
-bad=[]
-if len(d["rows"])<7: bad.append(f"only {len(d['rows'])} days")
-if last>lim: bad.append(f"last day ends at {last}, view ends at {lim}")
-if curve>lim: bad.append(f"the day curve ends at {curve}, view ends at {lim}")
-print(("::error::" if bad else "::notice::")+f"{name}: "+("; ".join(bad) if bad else f"all 7 days and the curve in view (last row {last}, curve {curve}, view {lim}, page {d['height']})"))
-PY
-}
-shape() {  # name WxH dpi
-  adb shell wm density $3; adb shell wm size $2
-  adb shell am force-stop $PKG; adb shell am start -W -n $PKG/.MainActivity >/dev/null; sleep 7
-  shot "$1"; check "$1"
-}
-shape 19-cover-portrait 1080x2520 420
-shape 20-cover-landscape 2520x1080 420
-shape 21-main-portrait 1880x1960 350
-shape 22-main-landscape 1960x1880 350
-adb shell wm size reset; adb shell wm density reset; sleep 2
 
 kill %1 2>/dev/null
 adb logcat -d > logcat.txt
