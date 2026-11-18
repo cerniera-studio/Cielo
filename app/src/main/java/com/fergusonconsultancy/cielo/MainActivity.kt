@@ -180,7 +180,12 @@ class MainActivity : Activity() {
         with(Store) { page = i }
     }
 
-    private fun showSettings() = show(SettingsSheet(this, "1.0." + versionCode()) { applySettings() })
+    private fun showSettings() = show(SettingsSheet(this, "1.0." + versionCode(), { applySettings() },
+        rain = { done ->
+            // Scroscio's test asks for the place on screen
+            val p = places.getOrNull(sky.page) ?: places.first()
+            io.execute { val k = Scroscio.check(this, p); main.post { done(k) } }
+        }))
 
     private fun versionCode() = runCatching { packageManager.getPackageInfo(packageName, 0).longVersionCode }.getOrDefault(0L)
 
