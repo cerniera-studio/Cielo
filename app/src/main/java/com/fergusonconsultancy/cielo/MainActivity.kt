@@ -73,6 +73,9 @@ class MainActivity : Activity() {
         sky.units = Units(fahrenheit, windUnit)
         sky.hapticsOn = haptics
         sky.concentratoOn = concentrato
+        sky.arrangeOn = arrange
+        if (shareRain) RainJob.schedule(this@MainActivity) else RainJob.cancel(this@MainActivity)
+        runCatching { contentResolver.notifyChange(RainProvider.URI, null) }
         sky.refreshData()
     }
 

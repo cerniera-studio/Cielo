@@ -36,6 +36,8 @@ class Forecast(
     val dDate: List<String>, val dCode: IntArray, val dMax: DoubleArray, val dMin: DoubleArray, val dRain: IntArray,
     val dPrecip: DoubleArray, val dRise: List<String>, val dSet: List<String>, val dUv: DoubleArray,
     val aqi: Int?,
+    /** The place's offset from UTC, so an hour in [hTime] can be turned into a real instant. */
+    val offset: Int = 0,
 ) {
     val days get() = dDate.size
 
@@ -49,6 +51,19 @@ class Forecast(
         val a = (d * 24).coerceAtMost(hTemp.size)
         val b = (a + 24).coerceAtMost(hTemp.size)
         return hTemp.copyOfRange(a, b)
+    }
+
+    /** The instant an hour in [hTime] begins, epoch milliseconds. */
+    fun epoch(i: Int): Long = runCatching {
+        java.time.LocalDateTime.parse(hTime[i]).toEpochSecond(java.time.ZoneOffset.ofTotalSeconds(offset)) * 1000
+    }.getOrDefault(-1L)
+
+    /** The hour holding [at] (epoch ms), or -1 when the forecast doesn't reach it. */
+    fun hourAt(at: Long): Int {
+        val first = epoch(0)
+        if (first < 0 || at < first) return -1
+        val i = ((at - first) / 3_600_000L).toInt()
+        return if (i < hTime.size) i else -1
     }
 
     /** How far through daylight the place is now: 0 at sunrise, 1 at sunset; outside 0..1 at night. */
@@ -89,6 +104,8 @@ object Weather {
         json.put("fetched", System.currentTimeMillis())
         val f = parse(json)
         Store.prefs(c).edit().putString("f_" + p.id, json.toString()).apply()
+        // Senso (in the Kit) watches the rain Cielo shares; tell it the forecast moved
+        runCatching { c.contentResolver.notifyChange(RainProvider.URI, null) }
         return f
     }
 
@@ -137,6 +154,7 @@ object Weather {
             dRain = d.optJSONArray("precipitation_probability_max").i(dn), dPrecip = d.optJSONArray("precipitation_sum").d(dn),
             dRise = d.optJSONArray("sunrise").s(dn), dSet = d.optJSONArray("sunset").s(dn), dUv = d.optJSONArray("uv_index_max").d(dn),
             aqi = aq?.num("european_aqi")?.roundToInt(),
+            offset = j.optInt("utc_offset_seconds", 0),
         )
     }
 
@@ -250,6 +268,16 @@ object Store {
     var Context.haptics: Boolean
         get() = prefs(this).getBoolean("haptics", true)
         set(v) = prefs(this).edit().putBoolean("haptics", v).apply()
+
+    /** Fluido: the screen leads with what matters today (rain or light). Rule of trust 5: it can be turned off. */
+    var Context.arrange: Boolean
+        get() = prefs(this).getBoolean("arrange", true)
+        set(v) = prefs(this).edit().putBoolean("arrange", v).apply()
+
+    /** Share the next rain with the family's apps (Senso, in the Kit). Times and chances only, never the place. */
+    var Context.shareRain: Boolean
+        get() = prefs(this).getBoolean("share_rain", true)
+        set(v) = prefs(this).edit().putBoolean("share_rain", v).apply()
 
     var Context.page: Int
         get() = prefs(this).getInt("page", 0)

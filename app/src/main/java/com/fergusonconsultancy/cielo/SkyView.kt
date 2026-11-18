@@ -39,6 +39,8 @@ class SkyView(context: Context) : View(context) {
     var units = Units(false, "mph")
     var hapticsOn = true
     var concentratoOn = true
+    /** Fluido: lead with what matters today. Off, the screen is as it was. */
+    var arrangeOn = true
     var busy: Set<String> = emptySet()
     var failed: Set<String> = emptySet()
     var page = 0
@@ -73,7 +75,7 @@ class SkyView(context: Context) : View(context) {
 
     private val lays = HashMap<String, Lay>()
 
-    private fun key(p: Place, f: Forecast?) = "${p.id}|${f?.fetched}|$width|$height|${units.fahrenheit}|$topInset|$bottomInset|$leftInset|$rightInset|${p.id in failed}"
+    private fun key(p: Place, f: Forecast?) = "${p.id}|${f?.fetched}|$arrangeOn|$width|$height|${units.fahrenheit}|$topInset|$bottomInset|$leftInset|$rightInset|${p.id in failed}"
 
     private fun layFor(i: Int): Lay {
         val p = places[i]; val f = forecastOf(p)
@@ -92,8 +94,12 @@ class SkyView(context: Context) : View(context) {
         runCatching { java.io.File(context.filesDir, "layout.json").writeText(json) }
     }
 
+    /** Today's lead (rain, light or plain), read when the forecast arrives. */
+    private fun leadOf(f: Forecast?): Today.Lead = if (f == null || !arrangeOn) Today.Lead.PLAIN else Today.lead(f)
+
     private fun tilesFor(f: Forecast?): List<Tile> {
         if (f == null) return emptyList()
+        val lead = leadOf(f)
         val t = mutableListOf(Tile.WIND, Tile.SUN, Tile.FEELS)
         // Giulietta: a tile shows only when it answers something today
         val rain = f.dPrecip.getOrNull(0)?.takeIf { !it.isNaN() } ?: 0.0
@@ -101,6 +107,12 @@ class SkyView(context: Context) : View(context) {
         if ((f.dUv.getOrNull(0)?.takeIf { !it.isNaN() } ?: 0.0) >= 3.0) t += Tile.UV
         if ((f.aqi ?: 0) > 40) t += Tile.AIR
         if ((f.visibility ?: 99_999.0) < 5_000.0) t += Tile.VIS
+        // Fluido: the tile that answers today's lead comes first
+        when (lead) {
+            Today.Lead.RAIN -> { t -= Tile.RAIN; t.add(0, Tile.RAIN) }
+            Today.Lead.LIGHT -> { val uv = Tile.UV in t; t -= Tile.SUN; t -= Tile.UV; t.add(0, Tile.SUN); if (uv) t.add(1, Tile.UV) }
+            Today.Lead.PLAIN -> {}
+        }
         return t
     }
 
@@ -513,14 +525,16 @@ class SkyView(context: Context) : View(context) {
                 sub = Weather.dayName(f.dDate[day], day, short = false) + " · high and low"
             } else {
                 lines = L.verdictLines
-                val words = Weather.describe(f.code, f.isDay).first
-                sub = words + (f.feels?.let { " · feels ${units.t(it)}" } ?: "")
+                // Fluido: one plain line, written for what today is about
+                sub = Today.line(f, leadOf(f), units)
             }
             ink.statement.color = alpha(Palette.IVORY, ea)
             var y = r.top + capHeight(ink.statement)
             lines.forEach { s -> c.drawText(s, r.left, y, ink.statement); y += ink.statement.textSize * 1.22f }
             ink.meta.color = alpha(Palette.MUTED, ea)
-            c.drawText(sub, r.left, y - ink.statement.textSize * 1.22f + ink.meta.textSize * 1.3f + 10 * dp, ink.meta)
+            // A narrow column (the cover held sideways) drops "feels" before it cuts a word
+            val subFit = if (ink.meta.measureText(sub) <= r.width()) sub else fit(sub.substringBefore(" · feels"), ink.meta, r.width())
+            c.drawText(subFit, r.left, y - ink.statement.textSize * 1.22f + ink.meta.textSize * 1.3f + 10 * dp, ink.meta)
             c.restoreToCount(save)
         }
 
@@ -627,6 +641,8 @@ class SkyView(context: Context) : View(context) {
             c.drawText(s, r.right - ink.meta.measureText(s), L.curve.top + capHeight(ink.meta), ink.meta)
         }
 
+        // Fluido: today's lead shapes the day panel; another day is shown plain
+        val lead = if (day == 0) leadOf(f) else Today.Lead.PLAIN
         val fr = currentFractions(f)
         val top = r.top + 34 * dp; val bottom = r.bottom - 8 * dp
         val xs = FloatArray(24) { r.left + r.width() * it / 23f }
@@ -666,7 +682,8 @@ class SkyView(context: Context) : View(context) {
         }
         if (reveal > nowFrac || nowH <= 0) {
             measure.getSegment(len * (if (nowH > 0) nowFrac else 0f), len * reveal, pastPath, true)
-            line.color = alpha(Palette.IVORY, 0.94f * ea); c.drawPath(pastPath, line)
+            // On a rain-led day the temperature steps back so the rain can lead
+            line.color = alpha(Palette.IVORY, (if (lead == Today.Lead.RAIN) 0.62f else 0.94f) * ea); c.drawPath(pastPath, line)
         }
 
         // Axis: a hairline, brighter between sunrise and sunset
@@ -674,14 +691,28 @@ class SkyView(context: Context) : View(context) {
         line.strokeWidth = 1f * dp; line.color = alpha(Palette.IVORY, 0.14f * ea)
         c.drawLine(r.left, axisY, r.right, axisY, line)
         val rise = f.minutes(f.dRise.getOrElse(day) { "" }); val set = f.minutes(f.dSet.getOrElse(day) { "" })
+        val riseX = r.left + r.width() * (rise / 60f) / 23f
+        val setX = r.left + r.width() * min(23f, set / 60f) / 23f
+        val lightLed = lead == Today.Lead.LIGHT && rise in 0 until set
         if (rise in 0 until set) {
-            line.color = alpha(Palette.CHAMPAGNE, 0.5f * ea)
-            c.drawLine(r.left + r.width() * (rise / 60f) / 23f, axisY, r.left + r.width() * min(23f, set / 60f) / 23f, axisY, line)
+            // A light-led day lights its daylight fully, a little heavier
+            line.color = alpha(Palette.CHAMPAGNE, (if (lightLed) 0.95f else 0.5f) * ea)
+            if (lightLed) line.strokeWidth = 2f * dp
+            c.drawLine(riseX, axisY, setX, axisY, line)
+            line.strokeWidth = 1f * dp
+        }
+        // Light-led: sunrise and sunset written where they fall, in place of the nearby anchors
+        val lightMarks = if (lightLed && !(current && scrubX >= 0)) listOf(riseX to Today.clockOf(rise), setX to Today.clockOf(set)) else emptyList()
+        lightMarks.forEach { (x, s) ->
+            ink.meta.color = alpha(Palette.CHAMPAGNE, ea * (0.3f + 0.7f * k))
+            val tw = ink.meta.measureText(s)
+            c.drawText(s, (x - tw / 2).coerceIn(r.left, r.right - tw), axisY + 18 * dp, ink.meta)
         }
         // Hour anchors, fading near a scrubbing finger
         ink.meta.color = Palette.MUTED
         for (h in intArrayOf(0, 6, 12, 18, 23)) {
             val x = xs[h]
+            if (lightMarks.any { abs(it.first - x) < 34 * dp }) continue
             val near = if (current && scrubX >= 0) (abs(x - scrubX) / (40 * dp)).coerceIn(0f, 1f) else 1f
             ink.meta.color = alpha(Palette.MUTED, ea * near * (0.3f + 0.7f * k))
             val s = if (h == 23) "23" else "%02d".format(h)
@@ -694,8 +725,10 @@ class SkyView(context: Context) : View(context) {
             val idx = day * 24 + h
             val pr = f.hRain.getOrElse(idx) { 0 }
             if (pr < 10) continue
-            fill.color = alpha(Palette.ACQUA, ea * (0.2f + 0.8f * pr / 100f) * (0.4f + 0.6f * k))
-            c.drawCircle(xs[h], axisY + 34 * dp, (1.6f + 1.4f * pr / 100f) * dp, fill)
+            // A rain-led day: the beads lead, fuller and larger
+            val big = if (lead == Today.Lead.RAIN) 1.6f else 1f
+            fill.color = alpha(Palette.ACQUA, ea * (min(1f, (0.2f + 0.8f * pr / 100f) * (if (big > 1f) 1.25f else 1f))) * (0.4f + 0.6f * k))
+            c.drawCircle(xs[h], axisY + 34 * dp, (1.6f + 1.4f * pr / 100f) * big * dp, fill)
         }
         // High and low marked where they happen
         if (!(current && scrubHour >= 0)) {

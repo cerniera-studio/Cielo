@@ -5,6 +5,8 @@
     <!-- Only for "Use my location", asked for when that is chosen -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- RainJob keeps the shared rain fresh across a restart -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <uses-feature android:name="android.hardware.location" android:required="false" />
     <uses-feature android:name="android.hardware.sensor.hinge_angle" android:required="false" />
@@ -29,5 +31,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Fluido: the next rain, shared with the family's apps (Senso in the Kit). Times and chances only -->
+        <provider
+            android:name=".RainProvider"
+            android:authorities="com.cerniera.cielo.rain"
+            android:exported="true" />
+
+        <service
+            android:name=".RainJob"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
     </application>
 </manifest>
