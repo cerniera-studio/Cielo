@@ -222,7 +222,14 @@ class PlacesSheet(
     fun say(s: String) { note.text = s; note.visibility = if (s.isEmpty()) GONE else VISIBLE }
 }
 
-class SettingsSheet(context: Context, version: String, changed: () -> Unit) : Sheet(context, "Settings") {
+class SettingsSheet(
+    context: Context, version: String, changed: () -> Unit,
+    private val rain: ((Scroscio.Check) -> Unit) -> Unit,
+) : Sheet(context, "Settings") {
+    private val rainBox = LinearLayout(context).apply { orientation = LinearLayout.VERTICAL }
+    private val rainNote: TextView = Bits.run { context.words("Asking for the next two hours…", 13.5f, Palette.MUTED, 450).apply { setLineSpacing(0f, 1.25f) } }
+    private val copy: TextView = Bits.run { context.words("", 15f, Palette.CHAMPAGNE, 600) }
+
     init {
         with(Bits) {
             with(Store) {
@@ -235,12 +242,73 @@ class SettingsSheet(context: Context, version: String, changed: () -> Unit) : Sh
                 body.addView(c.label("Motion"))
                 body.addView(toggle("Concentrato", "Labels step back while you move fast, and a fast fold plays a shorter entrance.", c.concentrato) { c.concentrato = it; changed() })
                 body.addView(toggle("Haptics", "A tick for each hour under your finger, and a click as the sun seats.", c.haptics) { c.haptics = it; changed() })
+                scroscio(c)
                 body.addView(c.words("Weather data by Open-Meteo.com, licensed CC BY 4.0. Places are kept on this phone and nothing else is sent anywhere.", 12.5f, Palette.FAINT, 450).apply {
                     setPadding(0, c.dp(30f).toInt(), 0, 0); setLineSpacing(0f, 1.25f)
                 })
                 body.addView(c.words("Cielo $version · Cerniera", 12.5f, Palette.FAINT, 450).apply { setPadding(0, c.dp(8f).toInt(), 0, 0) })
             }
         }
+    }
+
+    // ---- Scroscio, first step: the next eight quarter-hours from two sources, and a log ----
+    private fun scroscio(c: Context) = with(Bits) {
+        body.addView(c.label("Scroscio · rain test"))
+        body.addView(rainNote)
+        body.addView(rainBox, LinearLayout.LayoutParams(-1, -2).apply { topMargin = c.dp(10f).toInt() })
+        val actions = LinearLayout(c).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL }
+        actions.addView(c.words("Check again", 15f, Palette.CHAMPAGNE, 600).apply {
+            setPadding(0, c.dp(14f).toInt(), c.dp(24f).toInt(), c.dp(14f).toInt())
+            setOnClickListener { ask() }
+        })
+        actions.addView(copy.apply {
+            setPadding(0, c.dp(14f).toInt(), 0, c.dp(14f).toInt())
+            setOnClickListener {
+                val cm = c.getSystemService(android.content.ClipboardManager::class.java)
+                cm?.setPrimaryClip(android.content.ClipData.newPlainText("Scroscio log", Scroscio.logText(c)))
+                text = "Copied"
+            }
+        })
+        body.addView(actions)
+        ask()
+    }
+
+    private fun ask() {
+        rainNote.text = "Asking for the next two hours…"
+        rain { k -> if (!closing) show(k) }
+    }
+
+    private fun show(k: Scroscio.Check) = with(Bits) {
+        val c = context
+        rainNote.text = "${k.place}, ${k.at}. " + Scroscio.verdict(k)
+        rainBox.removeAllViews()
+        fun cell(s: String, colour: Int, weight: Int = 500) = c.words(s, 13.5f, colour, weight).apply {
+            fontFeatureSettings = "tnum"; gravity = Gravity.END
+        }
+        fun line(a: String, b: String, d: String, colour: Int, weight: Int = 500) = LinearLayout(c).apply {
+            orientation = LinearLayout.HORIZONTAL
+            setPadding(0, c.dp(5f).toInt(), 0, c.dp(5f).toInt())
+            addView(cell(a, colour, weight).apply { gravity = Gravity.START }, LinearLayout.LayoutParams(0, -2, 1f))
+            addView(cell(b, colour, weight), LinearLayout.LayoutParams(0, -2, 1f))
+            addView(cell(d, colour, weight), LinearLayout.LayoutParams(0, -2, 1f))
+        }
+        fun mm(s: Scroscio.Series, i: Int) = s.mm?.getOrNull(i)?.let { if (it.isNaN()) "–" else "%.1f".format(java.util.Locale.UK, it) } ?: "–"
+        fun ink(v: String) = if (v != "–" && v != "0.0") Palette.ACQUA else Palette.IVORY
+        rainBox.addView(line("Time", "ICON-D2", "Default", Palette.MUTED, 600))
+        k.times.forEachIndexed { i, t ->
+            val a = mm(k.icon, i); val b = mm(k.default, i)
+            rainBox.addView(LinearLayout(c).apply {
+                orientation = LinearLayout.HORIZONTAL
+                setPadding(0, c.dp(5f).toInt(), 0, c.dp(5f).toInt())
+                addView(cell(t, Palette.IVORY).apply { gravity = Gravity.START }, LinearLayout.LayoutParams(0, -2, 1f))
+                addView(cell(a, ink(a)), LinearLayout.LayoutParams(0, -2, 1f))
+                addView(cell(b, ink(b)), LinearLayout.LayoutParams(0, -2, 1f))
+            })
+        }
+        if (k.times.isEmpty()) rainBox.addView(c.words("No times came back.", 13.5f, Palette.MUTED, 450))
+        rainBox.addView(c.words("Millimetres per quarter-hour. Compare with the window; copy the log on a few wet days and send it over.",
+            12.5f, Palette.FAINT, 450).apply { setPadding(0, c.dp(8f).toInt(), 0, 0); setLineSpacing(0f, 1.25f) })
+        copy.text = "Copy log (${Scroscio.logSize(c)})"
     }
 
     private fun toggle(title: String, detail: String, on: Boolean, set: (Boolean) -> Unit): View = with(Bits) {
