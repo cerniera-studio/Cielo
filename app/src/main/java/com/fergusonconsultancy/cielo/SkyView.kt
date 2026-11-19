@@ -145,9 +145,9 @@ class SkyView(context: Context) : View(context) {
         val bL = if (wide) crease + pad * 0.8f else aL; val bR = right
         val aW = aR - aL; val bW = bR - bL
         // Tiles to a row from the room in their column, not from the window: three only where each
-        // still gets 120dp, as on the whole main screen (a window just over 600dp, as in split
+        // still gets 115dp, as on the whole main screen either way round (about 120dp) (a window just over 600dp, as in split
         // screen, has columns too narrow: three across there gave about 80dp and cut the figures)
-        val acrossWide = if (bW >= 3 * 120 * dp + 2 * tileGap) 3 else 2
+        val acrossWide = if (bW >= 3 * 115 * dp + 2 * tileGap) 3 else 2
         var fig = 150 * dp
         var heroH = capHeight(ink.figure) + 26 * dp
         val vLines = if (f == null) wrap(statusLine(null, failedNow), ink.statement, aW, 3) else wrap(Weather.verdict(f), ink.statement, aW, 2)

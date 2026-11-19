@@ -80,7 +80,7 @@ else
   w=$(wide); [ "$w" = true ] && note "Sky in a wide pop-up window: the wide layout" || fail "Sky in a wide pop-up window: wide=${w:-unknown}, expected the wide layout"
 
   # Just over 600dp, as in split screen on the main screen turned: two columns, and the Now tiles
-  # must each still have 120dp, as on the whole main screen (three across in a half-width column cut their figures to "9...")
+  # must each still have 115dp, as on the whole main screen (three across in a half-width column cut their figures to "9...")
   adb shell run-as $PKG rm -f files/layout.json
   adb shell am task resize "$id" 0 0 1100 1568; sleep 5; shot sky-popup-split
   t=""; for try in 1 2 3 4 5 6 7 8; do
@@ -93,8 +93,8 @@ print('none' if not ts else '%d %d' % (len(ts), min((r[2] - r[0]) / k for r in t
   set -- $t
   if [ -z "$t" ]; then fail "Sky just over 600dp wide: no layout recorded"
   elif [ "$1" = none ]; then warn "Sky just over 600dp wide: no tiles today; skipped"
-  elif [ "$2" -ge 120 ]; then note "Sky just over 600dp wide: $1 tiles, the narrowest $2dp"
-  else fail "Sky just over 600dp wide: tiles squeezed to $2dp (under 120dp)"; fi
+  elif [ "$2" -ge 115 ]; then note "Sky just over 600dp wide: $1 tiles, the narrowest $2dp"
+  else fail "Sky just over 600dp wide: tiles squeezed to $2dp (under 115dp)"; fi
 fi
 adb shell am force-stop $PKG; sleep 2
 
