@@ -57,7 +57,7 @@ class MainActivity : Activity() {
         }
 
         wide = resources.configuration.screenWidthDp >= 600
-        mainScreen = resources.configuration.smallestScreenWidthDp >= 600
+        mainScreen = com.cerniera.kit.Hinge.unfolded(this)
         sky.places = places
         sky.forecastOf = { forecasts[it.id] }
         sky.onPlaces = { showPlaces() }
@@ -128,8 +128,9 @@ class MainActivity : Activity() {
     override fun onConfigurationChanged(c: Configuration) {
         super.onConfigurationChanged(c)
         wide = c.screenWidthDp >= 600
-        // A fold changes the screen itself (its shortest side), not just which way up it is
-        val nowMain = c.smallestScreenWidthDp >= 600
+        // A fold changes the screen itself, not just which way up it is or how much of it Cielo
+        // has: split screen or a pop-up window on the main screen is not a fold (Kit PR #7)
+        val nowMain = com.cerniera.kit.Hinge.unfolded(this)
         if (nowMain != mainScreen) {
             mainScreen = nowMain
             sheet?.close()
