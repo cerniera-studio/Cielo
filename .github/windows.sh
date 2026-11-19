@@ -69,7 +69,9 @@ else
   fi
   adb shell input keyevent KEYCODE_BACK; sleep 2
 
-  # ---- 2. The sky, narrow then wide
+  # ---- 2. The sky, narrow then wide. Start wide, so that shrinking is a real change of size (a
+  # resize to the size it already has changes nothing, and nothing new is recorded)
+  adb shell am task resize "$id" 0 0 1503 1568; sleep 4
   adb shell run-as $PKG rm -f files/layout.json
   adb shell am task resize "$id" 0 0 740 1568; sleep 4; shot sky-popup-narrow
   w=$(wide); [ "$w" = false ] && note "Sky in a narrow pop-up window: the narrow layout" || fail "Sky in a narrow pop-up window: wide=${w:-unknown}, expected the narrow layout"
