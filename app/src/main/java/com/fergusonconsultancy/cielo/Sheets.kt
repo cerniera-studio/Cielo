@@ -242,6 +242,9 @@ class SettingsSheet(
                 body.addView(c.label("Motion"))
                 body.addView(toggle("Concentrato", "Labels step back while you move fast, and a fast fold plays a shorter entrance.", c.concentrato) { c.concentrato = it; changed() })
                 body.addView(toggle("Haptics", "A tick for each hour under your finger, and a click as the sun seats.", c.haptics) { c.haptics = it; changed() })
+                body.addView(c.label("Fluido"))
+                body.addView(toggle("Arrange by today", "On a wet day the rain leads; on a clear one, the light. One line under the glance says why.", c.arrange) { c.arrange = it; changed() })
+                body.addView(toggle("Share rain", "Your other Cerniera apps can see when rain is next due here, and how likely. Only times and chances, never the place.", c.shareRain) { c.shareRain = it; changed() })
                 scroscio(c)
                 body.addView(c.words("Weather data by Open-Meteo.com, licensed CC BY 4.0. Places are kept on this phone and nothing else is sent anywhere.", 12.5f, Palette.FAINT, 450).apply {
                     setPadding(0, c.dp(30f).toInt(), 0, 0); setLineSpacing(0f, 1.25f)

@@ -49,4 +49,6 @@ android {
 
 dependencies {
     implementation(project(":kit"))
+    // Today's lead and the shared rain are tested on the JVM: gradle :app:testDebugUnitTest
+    testImplementation("junit:junit:4.13.2")
 }
