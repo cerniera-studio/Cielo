@@ -67,6 +67,10 @@ class MainActivity : Activity() {
         applySettings()
         sky.setPage(with(Store) { page })
         if (forecasts.isNotEmpty()) { arrived = true; sky.arrive() }
+        // Tests only, debug builds: --es open places opens the Places sheet (the header is drawn,
+        // so inside a pop-up window it can't be tapped by position)
+        if ((applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE) != 0 &&
+            intent?.getStringExtra("open") == "places") root.post { showPlaces() }
     }
 
     private fun applySettings() = with(Store) {
