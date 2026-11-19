@@ -51,7 +51,8 @@ object Today {
     data class Wet(val from: Int, val to: Int, val mm: Double)
 
     fun wettest(f: Forecast): Wet? {
-        val wet = rest(f).filter { f.hRain[it] >= 40 || mm(f, it) >= 0.3 }
+        // The verdict's own threshold (50%), so the line never starts earlier than the glance above it
+        val wet = rest(f).filter { f.hRain[it] >= 50 || (mm(f, it) >= 0.3 && f.hRain[it] >= 30) }
         if (wet.isEmpty()) return null
         // The longest unbroken run (a gap of one dry hour is still the same spell)
         var best = wet.first()..wet.first(); var cur = best
@@ -82,7 +83,7 @@ object Today {
                 when {
                     w == null -> Weather.describe(f.code, f.isDay).first + feels
                     w.from == w.to -> "Wettest around ${f.hourOf(w.from)}" + amount(w.mm) + feels
-                    else -> "Wettest ${f.hourOf(w.from)}–${f.hourOf(w.to + 1).ifEmpty { "midnight" }}" + amount(w.mm) + feels
+                    else -> "Rain ${f.hourOf(w.from)}–${f.hourOf(w.to + 1).ifEmpty { "midnight" }}" + amount(w.mm) + feels
                 }
             }
             Lead.LIGHT -> {

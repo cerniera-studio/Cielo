@@ -25,7 +25,7 @@ class TodayTest {
         assertEquals(Today.Lead.RAIN, Today.lead(f))
         val w = Today.wettest(f)!!
         assertEquals(15, w.from); assertEquals(18, w.to)
-        assertEquals("Wettest 15:00–19:00, about 5 mm · feels 6°", Today.line(f, Today.Lead.RAIN, Units(false, "mph")))
+        assertEquals("Rain 15:00–19:00, about 5 mm · feels 6°", Today.line(f, Today.Lead.RAIN, Units(false, "mph")))
     }
 
     @Test fun clearDayLeadsWithLight() {
