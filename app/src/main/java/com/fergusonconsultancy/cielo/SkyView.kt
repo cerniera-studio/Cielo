@@ -90,6 +90,7 @@ class SkyView(context: Context) : View(context) {
         fun r(x: RectF) = "[${x.left.toInt()},${x.top.toInt()},${x.right.toInt()},${x.bottom.toInt()}]"
         val json = "{\"plot\":${r(L.plot)},\"header\":${r(L.header)},\"rows\":[${L.rows.joinToString(",") { r(it) }}]," +
             "\"settings\":${r(L.settingsBtn)},\"places\":${r(L.placesBtn)},\"curve\":${r(L.curve)},\"hero\":${r(L.hero)},\"verdict\":${r(L.verdict)}," +
+            "\"tiles\":[${L.tiles.joinToString(",") { r(it.second) }}],\"density\":${dp}," +
             "\"view\":${height},\"bottomInset\":${bottomInset.toInt()},\"height\":${L.height.toInt()},\"wide\":${L.wide}}"
         runCatching { java.io.File(context.filesDir, "layout.json").writeText(json) }
     }
@@ -143,6 +144,10 @@ class SkyView(context: Context) : View(context) {
         val aL = left; val aR = if (wide) crease - pad * 0.8f else right
         val bL = if (wide) crease + pad * 0.8f else aL; val bR = right
         val aW = aR - aL; val bW = bR - bL
+        // Tiles to a row from the room in their column, not from the window: three only where each
+        // still gets 115dp, as on the whole main screen either way round (about 120dp) (a window just over 600dp, as in split
+        // screen, has columns too narrow: three across there gave about 80dp and cut the figures)
+        val acrossWide = if (bW >= 3 * 115 * dp + 2 * tileGap) 3 else 2
         var fig = 150 * dp
         var heroH = capHeight(ink.figure) + 26 * dp
         val vLines = if (f == null) wrap(statusLine(null, failedNow), ink.statement, aW, 3) else wrap(Weather.verdict(f), ink.statement, aW, 2)
@@ -157,7 +162,7 @@ class SkyView(context: Context) : View(context) {
             // The day fills its column to the foot of the glass
             plotH = (hh - bottomInset - 24 * dp - (topA + gapVC) - 30 * dp - 48 * dp).coerceAtLeast(190 * dp)
             // The week and its tiles likewise: rows breathe first, then the tiles, then the gaps
-            val across = 3
+            val across = acrossWide
             val tileRows = (kinds.size + across - 1) / across
             fun colB() = topInset + 18 * dp + weekH + n * rowH + (if (n > 0) gapNow else 0f) +
                 (if (kinds.isNotEmpty()) 22 * dp + tileRows * tileH + (tileRows - 1) * tileGap + gapFoot else 0f) + 96 * dp
@@ -179,6 +184,11 @@ class SkyView(context: Context) : View(context) {
                 val d = min(over, 40 * dp * per); fig -= d / per; heroH -= d; over -= d
             }
             if (over > 0 && n > 0) { val d = min(over, n * 4 * dp); rowH -= d / n; over -= d }
+            // Shorter still (a pop-up window, a split, a small phone): the curve gives more, down to a
+            // ribbon, then the gaps close to their floor. The week stays whole above the fold.
+            if (over > 0) { val d = min(over, (plotH - 56 * dp).coerceAtLeast(0f)); plotH -= d; over -= d }
+            if (over > 0) { val d = min(over, (gapVC - 8 * dp).coerceAtLeast(0f)); gapVC -= d; over -= d }
+            if (over > 0) { val d = min(over, (gapCW - 10 * dp).coerceAtLeast(0f)); gapCW -= d; over -= d }
         }
 
         var y = topInset + 10 * dp
@@ -196,7 +206,7 @@ class SkyView(context: Context) : View(context) {
         val rows = (0 until n).map { RectF(bL, yb + it * rowH, bR, yb + (it + 1) * rowH) }
         yb += n * rowH + if (n > 0) gapNow else 0f
 
-        val across = if (wide) 3 else 2
+        val across = if (wide) acrossWide else 2
         val tiles = placeTiles(kinds, bL, bR, across, tileH, yb)
         if (tiles.isNotEmpty()) yb = tiles.last().second.bottom + gapFoot
 
