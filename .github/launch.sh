@@ -77,16 +77,27 @@ if curve>lim: bad.append(f"the day curve ends at {curve}, view ends at {lim}")
 print(("::error::" if bad else "::notice::")+f"{name}: "+("; ".join(bad) if bad else f"all 7 days and the curve in view (last row {last}, curve {curve}, view {lim}, page {d['height']})"))
 PY
 }
-shape() {  # name WxH dpi
+rows() { lay | python3 -c "import sys,json;print(len(json.load(sys.stdin)['rows']))" 2>/dev/null || echo 0; }
+# Landscape is the glass turned, as on the phone: the display keeps its portrait size and is
+# rotated. Swapping wm size to the landscape numbers instead made the emulator's GPU (SwiftShader)
+# crash and take the emulator down at 20-cover-landscape (three runs on 20 Nov), with Cielo fine.
+adb shell settings put system accelerometer_rotation 0
+shape() {  # name WxH(portrait) dpi rotation(0 or 1)
   adb shell wm density $3; adb shell wm size $2
-  adb shell am force-stop $PKG; adb shell am start -W -n $PKG/.MainActivity >/dev/null; sleep 7
+  adb shell settings put system user_rotation $4
+  adb shell am force-stop $PKG; adb shell run-as $PKG rm -f files/layout.json
+  adb shell am start -W -n $PKG/.MainActivity >/dev/null; sleep 4
+  # Wait for the forecast to be laid out (a fixed wait once read "only 0 days"), up to 15 s more
+  for i in $(seq 1 15); do [ "$(rows)" -ge 7 ] && break; sleep 1; done
+  sleep 1
   shot "$1"; check "$1"
 }
-shape 19-cover-portrait 823x1920 320
-shape 20-cover-landscape 1920x823 320
-shape 21-main-portrait 1503x1568 280
-shape 22-main-landscape 1568x1503 280
-shape 23-short-portrait 1080x1920 420
+shape 19-cover-portrait 823x1920 320 0
+shape 20-cover-landscape 823x1920 320 1
+shape 21-main-portrait 1503x1568 280 0
+shape 22-main-landscape 1503x1568 280 1
+shape 23-short-portrait 1080x1920 420 0
+adb shell settings put system user_rotation 0
 adb shell wm size reset; adb shell wm density reset; sleep 2
 adb shell am force-stop $PKG; adb shell am start -W -n $PKG/.MainActivity >/dev/null; sleep 6
 
