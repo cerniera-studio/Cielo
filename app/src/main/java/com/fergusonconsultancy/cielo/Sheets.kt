@@ -257,6 +257,13 @@ class SettingsSheet(
     // ---- Scroscio, first step: the next eight quarter-hours from two sources, and a log ----
     private fun scroscio(c: Context) = with(Bits) {
         body.addView(c.label("Scroscio · rain test"))
+        // Say what this is before any numbers: a trial, two forecasts, nothing changed in the app
+        body.addView(c.words("A trial for a coming feature: rain in quarter-hours for the next two hours. " +
+            "Two forecasts side by side. ICON-D2 is a fine-grained model with true 15-minute steps; " +
+            "Usual is Cielo's normal forecast, which in the UK is hourly and sometimes spread across the quarters. " +
+            "Nothing here changes the app.", 13.5f, Palette.MUTED, 450).apply {
+            setPadding(0, 0, 0, c.dp(10f).toInt()); setLineSpacing(0f, 1.25f)
+        })
         body.addView(rainNote)
         body.addView(rainBox, LinearLayout.LayoutParams(-1, -2).apply { topMargin = c.dp(10f).toInt() })
         val actions = LinearLayout(c).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL }
@@ -297,7 +304,7 @@ class SettingsSheet(
         }
         fun mm(s: Scroscio.Series, i: Int) = s.mm?.getOrNull(i)?.let { if (it.isNaN()) "–" else "%.1f".format(java.util.Locale.UK, it) } ?: "–"
         fun ink(v: String) = if (v != "–" && v != "0.0") Palette.ACQUA else Palette.IVORY
-        rainBox.addView(line("Time", "ICON-D2", "Default", Palette.MUTED, 600))
+        rainBox.addView(line("Time", "ICON-D2", "Usual", Palette.MUTED, 600))
         k.times.forEachIndexed { i, t ->
             val a = mm(k.icon, i); val b = mm(k.default, i)
             rainBox.addView(LinearLayout(c).apply {
@@ -309,7 +316,7 @@ class SettingsSheet(
             })
         }
         if (k.times.isEmpty()) rainBox.addView(c.words("No times came back.", 13.5f, Palette.MUTED, 450))
-        rainBox.addView(c.words("Millimetres per quarter-hour. Compare with the window; copy the log on a few wet days and send it over.",
+        rainBox.addView(c.words("Millimetres per quarter-hour. On a wet day, note what you see outside and copy the log.",
             12.5f, Palette.FAINT, 450).apply { setPadding(0, c.dp(8f).toInt(), 0, 0); setLineSpacing(0f, 1.25f) })
         copy.text = "Copy log (${Scroscio.logSize(c)})"
     }
