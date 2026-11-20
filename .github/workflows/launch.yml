@@ -20,9 +20,11 @@ jobs:
         include:
           # API 34 images die on this runner while forking a freshly installed app's process,
           # before any app code runs (4 Nov); API 33 is stable
-          - name: api33-swiftshader
+          # Guest rendering: the host SwiftShader path (swiftshader_indirect) crashed the emulator
+          # ("bad color buffer handle") on the cover-landscape shape in most runs on 20 Nov
+          - name: api33-guest
             api: 33
-            gpu: swiftshader_indirect
+            gpu: guest
     steps:
       - uses: actions/checkout@v4
         with:
