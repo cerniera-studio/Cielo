@@ -42,7 +42,7 @@ object Scroscio {
     }
 
     private fun ask(p: Place, model: String?): Pair<List<String>, Series> {
-        val name = if (model == null) "Default" else "ICON-D2"
+        val name = if (model == null) "Usual" else "ICON-D2"
         return runCatching {
             val url = "https://api.open-meteo.com/v1/forecast?latitude=${p.lat}&longitude=${p.lon}&timezone=auto" +
                 "&minutely_15=precipitation&forecast_minutely_15=8" + (model?.let { "&models=$it" } ?: "")
@@ -76,9 +76,12 @@ object Scroscio {
 
     private fun log(c: Context, k: Check) {
         val a = runCatching { JSONArray(Store.prefs(c).getString(KEY, "[]")) }.getOrDefault(JSONArray())
-        val line = "${k.at} · ${k.place} · from ${k.times.firstOrNull() ?: "?"}\n" +
-            "  ICON-D2: ${k.icon.text()}\n  Default: ${k.default.text()}" + (if (k.default.looksHourly) "  (spread from hourly)" else "")
-        a.put(line)
+        val reading = "${k.place} · from ${k.times.firstOrNull() ?: "?"}\n" +
+            "  ICON-D2: ${k.icon.text()}\n  Usual:   ${k.default.text()}" + (if (k.default.looksHourly) "  (hourly, spread over the quarters)" else "")
+        // A repeat of the last check (same place, same window, same numbers) adds nothing: skip it
+        val last = if (a.length() > 0) a.getString(a.length() - 1) else null
+        if (last != null && last.substringAfter(" · ") == reading) return
+        a.put("${k.at} · $reading")
         val keep = JSONArray(); for (i in maxOf(0, a.length() - KEEP) until a.length()) keep.put(a.getString(i))
         Store.prefs(c).edit().putString(KEY, keep.toString()).apply()
     }
@@ -96,7 +99,7 @@ object Scroscio {
     /** One plain line for the sheet: what this check says about the data. */
     fun verdict(k: Check): String = when {
         k.icon.mm == null && k.default.mm == null -> "Neither source answered. Check the connection and try again."
-        k.icon.mm == null -> "ICON-D2 has no values here, so this place is outside its area. The default " +
+        k.icon.mm == null -> "ICON-D2 has no values here, so this place is outside its area. The usual forecast " +
             (if (k.default.looksHourly) "looks spread from hourly data." else "is the only quarter-hour source.")
         !k.icon.wet && !k.default.wet -> "Dry for the next two hours in both. Check again on a wet day."
         else -> "ICON-D2 answers here, so quarter-hour rain is real for this place. Compare both with the window."
