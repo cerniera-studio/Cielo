@@ -1,0 +1,6 @@
+task: 19 freeform
+::notice::Places in a pop-up window: still open after shrinking to half width
+::notice::Sky in a narrow pop-up window: the narrow layout
+::notice::Sky in a wide pop-up window: the wide layout
+::notice::Sky just over 600dp wide: 5 tiles, the narrowest 126dp
+::notice::Places: still open after turning
