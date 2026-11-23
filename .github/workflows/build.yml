@@ -54,16 +54,15 @@ jobs:
           name: Cielo-apk
           path: app/build/outputs/apk/debug/*.apk
 
-      # Each build on main is published as a release with the APK, so it installs from a plain link
+      # Each build is published with its APK, so Officina can install it: main as a release, branches as pre-releases
       - name: Name the APK
-        if: github.ref == 'refs/heads/main'
         run: cp app/build/outputs/apk/debug/app-debug.apk Cielo.apk
 
       - name: Publish release
-        if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: build-${{ github.run_number }}
           target_commitish: ${{ github.sha }}
-          name: Cielo build ${{ github.run_number }}
+          name: Cielo build ${{ github.run_number }}${{ github.ref != 'refs/heads/main' && format(' ({0})', github.ref_name) || '' }}
+          prerelease: ${{ github.ref != 'refs/heads/main' }}
           files: Cielo.apk
